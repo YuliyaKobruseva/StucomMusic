@@ -7,7 +7,6 @@ package windows;
 
 import controller.Manager;
 import exceptions.ManagerException;
-import java.awt.Toolkit;
 import java.awt.event.KeyEvent;
 import javax.swing.JOptionPane;
 import model.user.User;

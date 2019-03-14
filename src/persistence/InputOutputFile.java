@@ -65,7 +65,6 @@ public class InputOutputFile {
         FileWriter fileWriter = null;
         try {
             fileWriter = new FileWriter(FOLDER_DATA + SEPARATOR + nameFile);
-
             if (nameFile.equalsIgnoreCase("users")) {
                 //Write the CSV file header           
                 fileWriter.append(FILE_HEADER_USER);
@@ -126,37 +125,51 @@ public class InputOutputFile {
      * @param users
      * @param fileName
      */
-    public static void readFromFile(HashSet<User> users, String fileName) {
-        BufferedReader fileReader = null;
-        try {
-            String line = "";
-            //Create the file reader
-            fileReader = new BufferedReader(new FileReader(FOLDER_DATA + SEPARATOR + fileName));
-            //Read the CSV file header to skip it
-            fileReader.readLine();
-            //Read the file line by line starting from the second line
-            while ((line = fileReader.readLine()) != null) {
-                //Get all tokens available in line
-                String[] tokens = line.split(COMMA_DELIMITER);
-                if (tokens.length > 0) {
-                    //Create a new student object and fill his  data
-                    boolean isAdmin = tokens[USER_TYPE].equalsIgnoreCase("ADMIN");
-                    User user = new User(tokens[USER_NAME], tokens[USER_PASSWORD], isAdmin);
-                    users.add(user);
+    public static boolean readFromFile(HashSet<User> users, String fileName) {
+        File file = new File(FOLDER_DATA + SEPARATOR + fileName);
+        if (file.exists()) {
+            BufferedReader fileReader = null;
+            try {
+                String line = "";
+                //Create the file reader
+                fileReader = new BufferedReader(new FileReader(file));
+                //Read the CSV file header to skip it
+                fileReader.readLine();
+                //Read the file line by line starting from the second line
+                while ((line = fileReader.readLine()) != null) {
+                    //Get all tokens available in line
+                    String[] tokens = line.split(COMMA_DELIMITER);
+                    if (tokens.length > 0) {
+                        if (fileName.equalsIgnoreCase("users")) {
+                            //Create a new user object and fill his  data
+                            boolean isAdmin = tokens[USER_TYPE].equalsIgnoreCase("ADMIN");
+                            User user = new User(tokens[USER_NAME], tokens[USER_PASSWORD], isAdmin);
+                            users.add(user);
+                        } else {
+                            Score score = new Score(tokens[SCORE_CODE], tokens[SCORE_TITLE], tokens[SCORE_ARTIST], tokens[SCORE_INSTRUMENT],
+                                    tokens[SCORE_GENRE], tokens[SCORE_LEVEL], Boolean.parseBoolean(tokens[SCORE_ISPRINTED]));
+                            for (User user : users) {
+                                if (user.getName().equalsIgnoreCase(fileName)) {
+                                    user.setScores(score);
+                                }
+                            }
+                        }
+                    }
+                }
+            } catch (Exception e) {
+                System.out.println("Error in CsvFileReader !!!");
+                e.printStackTrace();
+            } finally {
+                try {
+                    fileReader.close();
+                } catch (IOException e) {
+                    System.out.println("Error while closing fileReader !!!");
+                    e.printStackTrace();
                 }
             }
-        } catch (Exception e) {
-            System.out.println("Error in CsvFileReader !!!");
-            e.printStackTrace();
-        } finally {
-            try {
-                fileReader.close();
-            } catch (IOException e) {
-                System.out.println("Error while closing fileReader !!!");
-                e.printStackTrace();
-            }
+            return true;
         }
-
+        return false;
     }
 
     /**

@@ -77,7 +77,15 @@ public class Manager {
      *
      */
     public void initData() {
-        InputOutputFile.readFromFile(users, "users");
+
+        if (InputOutputFile.readFromFile(users, "users")) {
+            users.forEach((user) -> {
+                InputOutputFile.readFromFile(users, user.getName());
+            });
+        } else {
+            users.add(new User("admin", "admin", true));
+            InputOutputFile.writeFile(users, "users");
+        }
     }
 
     /**
@@ -275,26 +283,33 @@ public class Manager {
      */
     public ArrayList selectedScores(String typeInstrument, String level) throws ManagerException {
         ArrayList<Score> scores = allScores();
+        ArrayList<Score> scoresSearch = null;
         if (!scores.isEmpty()) {
-            if ((!typeInstrument.equalsIgnoreCase(typeInstrument) && !level.equalsIgnoreCase(level)) || typeInstrument.equalsIgnoreCase("") || level.equalsIgnoreCase("")) {
-                scores.clear();
-                scores.forEach((score) -> {
+            if ((!typeInstrument.equalsIgnoreCase("") && !level.equalsIgnoreCase(""))
+                    || (typeInstrument.equalsIgnoreCase("") && !level.equalsIgnoreCase(""))
+                    || (!typeInstrument.equalsIgnoreCase("") && level.equalsIgnoreCase(""))) {
+                System.out.println("entra");
+                for (Score score : scores) {
                     if (!typeInstrument.equals("") && !level.equalsIgnoreCase("")) {
                         if (score.getInstrument().equalsIgnoreCase(typeInstrument) && score.getDifficultyLevel().equalsIgnoreCase(level)) {
-                            scores.add(score);
+                            System.out.println("2");
+                            scoresSearch.add(score);
                         }
                     } else if (typeInstrument.equalsIgnoreCase("") && !level.equalsIgnoreCase("")) {
+                        System.out.println("inst");
                         if (score.getDifficultyLevel().equalsIgnoreCase(level)) {
-                            scores.add(score);
+                            scoresSearch.add(score);
                         }
                     } else if (!typeInstrument.equalsIgnoreCase("") && level.equalsIgnoreCase("")) {
+                        System.out.println("level");
                         if (score.getInstrument().equalsIgnoreCase(typeInstrument)) {
-                            scores.add(score);
+                            scoresSearch.add(score);
                         }
                     }
-                });
+                }
             }
         }
+        scores = scoresSearch;
         return scores;
     }
 

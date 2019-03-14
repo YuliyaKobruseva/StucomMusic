@@ -1,5 +1,3 @@
 name, password, typeUser
-coco,coco,USER
-admin,admin,ADMIN
-yuli,yuli,ADMIN
 user,user,USER
+admin,admin,ADMIN
