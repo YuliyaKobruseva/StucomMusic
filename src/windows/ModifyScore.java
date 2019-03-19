@@ -5,7 +5,9 @@
  */
 package windows;
 
+import SwingTools.SwingTools;
 import controller.Manager;
+import exceptions.InputOutputException;
 import exceptions.ManagerException;
 import java.util.Map;
 import java.util.TreeMap;
@@ -24,15 +26,11 @@ public class ModifyScore extends javax.swing.JDialog {
     public ModifyScore(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
-        Manager.getManager().setIcon(this, null);
+        SwingTools.getSwingTools().setIcon(this, null);
+        modifyButton.setEnabled(false);
         TreeMap<String, Score> userScores = Manager.getManager().getCurrentUser().getScores();
-        if (userScores.isEmpty()) {
-            JOptionPane.showMessageDialog(this, "You do not have any registred score", "Message", JOptionPane.WARNING_MESSAGE);
-            dispose();
-        } else {            
-            for (Map.Entry<String, Score> codeScoreItem : userScores.entrySet()) {
-                scoreSelected.addItem(codeScoreItem.getKey());
-            }
+        for (Map.Entry<String, Score> codeScoreItem : userScores.entrySet()) {
+            scoreSelected.addItem(codeScoreItem.getKey());
         }
     }
 
@@ -48,7 +46,7 @@ public class ModifyScore extends javax.swing.JDialog {
         difficultyLevel = new javax.swing.ButtonGroup();
         labelForChooseScore = new javax.swing.JLabel();
         scoreSelected = new javax.swing.JComboBox<>();
-        jPanel1 = new javax.swing.JPanel();
+        datos = new javax.swing.JPanel();
         codeLabel = new javax.swing.JLabel();
         codeScoreSelected = new javax.swing.JTextField();
         titleLabel = new javax.swing.JLabel();
@@ -114,81 +112,81 @@ public class ModifyScore extends javax.swing.JDialog {
 
         instrumentScoreSelected.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Battery", "Flute", "Guitar", "Bass Guitar", "Piano" }));
 
-        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
-        jPanel1.setLayout(jPanel1Layout);
-        jPanel1Layout.setHorizontalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
+        javax.swing.GroupLayout datosLayout = new javax.swing.GroupLayout(datos);
+        datos.setLayout(datosLayout);
+        datosLayout.setHorizontalGroup(
+            datosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(datosLayout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(datosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(difficultyLevelLabel, javax.swing.GroupLayout.DEFAULT_SIZE, 165, Short.MAX_VALUE)
                     .addComponent(instrumentLabel, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(genderLabel, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(artistLabel, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(titleLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(codeLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGroup(datosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(datosLayout.createSequentialGroup()
                         .addGap(70, 70, 70)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addGroup(datosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(codeScoreSelected)
                             .addComponent(titleScoreSelected)
                             .addComponent(artistScoreSeleted)
                             .addComponent(genreScoreSelected, javax.swing.GroupLayout.DEFAULT_SIZE, 254, Short.MAX_VALUE)))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
+                    .addGroup(datosLayout.createSequentialGroup()
                         .addGap(62, 62, 62)
                         .addComponent(jRadioButton1)
                         .addGap(18, 18, 18)
                         .addComponent(jRadioButton2)
                         .addGap(18, 18, 18)
                         .addComponent(jRadioButton3))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, datosLayout.createSequentialGroup()
                         .addGap(70, 70, 70)
                         .addComponent(instrumentScoreSelected, javax.swing.GroupLayout.PREFERRED_SIZE, 254, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(268, 268, 268))
-            .addGroup(jPanel1Layout.createSequentialGroup()
+            .addGroup(datosLayout.createSequentialGroup()
                 .addGap(273, 273, 273)
                 .addComponent(printedLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(isPrintedSelected, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(137, 137, 137))
         );
-        jPanel1Layout.setVerticalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
+        datosLayout.setVerticalGroup(
+            datosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(datosLayout.createSequentialGroup()
                 .addGap(8, 8, 8)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addGroup(datosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(codeLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(codeScoreSelected, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(31, 31, 31)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                .addGroup(datosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(titleScoreSelected, javax.swing.GroupLayout.DEFAULT_SIZE, 39, Short.MAX_VALUE)
                     .addComponent(titleLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addGap(38, 38, 38)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addGroup(datosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(artistLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(artistScoreSeleted, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(29, 29, 29)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(datosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(genderLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(genreScoreSelected, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGroup(datosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(datosLayout.createSequentialGroup()
                         .addComponent(instrumentLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, datosLayout.createSequentialGroup()
                         .addComponent(instrumentScoreSelected, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(7, 7, 7)))
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGroup(datosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(datosLayout.createSequentialGroup()
                         .addComponent(difficultyLevelLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(0, 0, Short.MAX_VALUE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, datosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(jRadioButton1)
                         .addComponent(jRadioButton2)
                         .addComponent(jRadioButton3)))
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(datosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(printedLabel, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(isPrintedSelected, javax.swing.GroupLayout.Alignment.TRAILING))
                 .addContainerGap())
@@ -216,7 +214,7 @@ public class ModifyScore extends javax.swing.JDialog {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(layout.createSequentialGroup()
                         .addGap(66, 66, 66)
-                        .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addComponent(datos, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(30, 30, 30)
                         .addComponent(labelForChooseScore, javax.swing.GroupLayout.PREFERRED_SIZE, 223, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -239,7 +237,7 @@ public class ModifyScore extends javax.swing.JDialog {
                     .addComponent(scoreSelected, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(selectScore, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(34, 34, 34)
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(datos, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(modifyButton, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(38, Short.MAX_VALUE))
@@ -249,10 +247,10 @@ public class ModifyScore extends javax.swing.JDialog {
     }// </editor-fold>//GEN-END:initComponents
 
     private void selectScoreActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_selectScoreActionPerformed
-
         if (scoreSelected.getSelectedIndex() == -1) {
             JOptionPane.showMessageDialog(this, "Score not selected", "Message", JOptionPane.WARNING_MESSAGE);
         } else {
+            modifyButton.setEnabled(true);
             String codeScoreSelected = scoreSelected.getSelectedItem().toString();
             try {
                 Score scoreForModify = Manager.getManager().checkExistScore(codeScoreSelected);
@@ -265,7 +263,7 @@ public class ModifyScore extends javax.swing.JDialog {
                         instrumentScoreSelected.setSelectedIndex(i);
                     }
                 }
-                Manager.getManager().setSelectedButtonText(scoreForModify.getDifficultyLevel(), difficultyLevel);
+                SwingTools.getSwingTools().setSelectedButtonText(scoreForModify.getDifficultyLevel(), difficultyLevel);
                 isPrintedSelected.setSelected(scoreForModify.isIsPrinted());
             } catch (ManagerException ex) {
                 JOptionPane.showMessageDialog(this, "" + ex.getMessage(), "Message", JOptionPane.WARNING_MESSAGE);
@@ -280,12 +278,16 @@ public class ModifyScore extends javax.swing.JDialog {
         String artist = artistScoreSeleted.getText();
         String genre = genreScoreSelected.getText();
         String instrumentScore = instrumentScoreSelected.getSelectedItem().toString();
-        String difficultyLevelScore = Manager.getManager().getSelectedButtonText(difficultyLevel);
+        String difficultyLevelScore = SwingTools.getSwingTools().getSelectedButtonText(difficultyLevel);
         boolean isPrintedScore = isPrintedSelected.isSelected();
-        if (Manager.getManager().modifyScore(code, title, artist, instrumentScore, genre, difficultyLevelScore, isPrintedScore)) {
-            JOptionPane.showMessageDialog(this, "Score modified successful", "Message", JOptionPane.INFORMATION_MESSAGE);
-        } else {
-            JOptionPane.showMessageDialog(this, "It has not been possible to modify score ", "Message", JOptionPane.WARNING_MESSAGE);
+        try {
+            if (Manager.getManager().modifyScore(code, title, artist, instrumentScore, genre, difficultyLevelScore, isPrintedScore)) {
+                JOptionPane.showMessageDialog(this, "Score modified successful", "Message", JOptionPane.INFORMATION_MESSAGE);
+            } else {
+                JOptionPane.showMessageDialog(this, "It has not been possible to modify score ", "Message", JOptionPane.WARNING_MESSAGE);
+            }
+        } catch (InputOutputException ex) {
+            JOptionPane.showMessageDialog(this, "" + ex.getMessage(), "Message", JOptionPane.WARNING_MESSAGE);
         }
 
     }//GEN-LAST:event_modifyButtonMouseClicked
@@ -296,6 +298,7 @@ public class ModifyScore extends javax.swing.JDialog {
     private javax.swing.JTextField artistScoreSeleted;
     private javax.swing.JLabel codeLabel;
     private javax.swing.JTextField codeScoreSelected;
+    private javax.swing.JPanel datos;
     private javax.swing.ButtonGroup difficultyLevel;
     private javax.swing.JLabel difficultyLevelLabel;
     private javax.swing.JLabel genderLabel;
@@ -303,7 +306,6 @@ public class ModifyScore extends javax.swing.JDialog {
     private javax.swing.JLabel instrumentLabel;
     private javax.swing.JComboBox<String> instrumentScoreSelected;
     private javax.swing.JCheckBox isPrintedSelected;
-    private javax.swing.JPanel jPanel1;
     private javax.swing.JRadioButton jRadioButton1;
     private javax.swing.JRadioButton jRadioButton2;
     private javax.swing.JRadioButton jRadioButton3;
