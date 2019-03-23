@@ -6,6 +6,7 @@
 package windows;
 
 import controller.Manager;
+import exceptions.InputOutputException;
 import exceptions.ManagerException;
 import javax.swing.JOptionPane;
 import model.user.User;
@@ -28,7 +29,8 @@ public class AddUser extends javax.swing.JDialog {
         errorName.setVisible(false);
         errorPass.setVisible(false);
         errorPass2.setVisible(false);
-
+        password1.setText("");
+        password2.setText("");
     }
 
     /**
@@ -67,12 +69,6 @@ public class AddUser extends javax.swing.JDialog {
         jLabel3.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         jLabel3.setLabelFor(password2);
         jLabel3.setText("Confirm password");
-
-        password2.addFocusListener(new java.awt.event.FocusAdapter() {
-            public void focusLost(java.awt.event.FocusEvent evt) {
-                password2FocusLost(evt);
-            }
-        });
 
         addUserButton.setText("Add user");
         addUserButton.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -165,42 +161,42 @@ public class AddUser extends javax.swing.JDialog {
         boolean isAdminUser = isAdmin.isSelected();
         if (name.equals("") || name.trim().equals("")) {
             errorName.setVisible(true);
-        } else if (pass1.equals("") || pass1.trim().equals("")) {
-            errorPass.setVisible(true);
         } else {
-            if (Manager.getManager().checkPassword(pass1, pass2)) {
+            errorName.setVisible(false);
+            if (pass1.equals("") || pass1.trim().equals("")) {
+                errorPass.setVisible(true);
+            } else {
+                errorPass.setVisible(false);
                 try {
-                    User userAdd = Manager.getManager().checkExistUser(name);
-                    if (userAdd != null) {
-                        JOptionPane.showMessageDialog(this, "User already exist", "Message", JOptionPane.WARNING_MESSAGE);
+                    if (!Manager.getManager().checkPassword(pass1, pass2)) {
+                        errorPass2.setVisible(true);
                     } else {
-                        if (Manager.getManager().addNewUser(name, pass1, isAdminUser)) {
-                            JOptionPane.showMessageDialog(this, "User added successful", "Message", JOptionPane.INFORMATION_MESSAGE);
-                            nameUser.setText("");
-                            password1.setText("");
-                            password2.setText("");
-                        } else {
-                            JOptionPane.showMessageDialog(this, "User already exist", "Message", JOptionPane.WARNING_MESSAGE);
+                        errorPass2.setVisible(false);
+                        try {
+                            User userAdd = Manager.getManager().checkExistUser(name);
+                            if (userAdd != null) {
+                                JOptionPane.showMessageDialog(this, "User already exist", "Message", JOptionPane.WARNING_MESSAGE);
+                            } else {
+                                if (Manager.getManager().addNewUser(name, pass1, isAdminUser)) {
+                                    JOptionPane.showMessageDialog(this, "User added successful", "Message", JOptionPane.INFORMATION_MESSAGE);
+                                    this.validate();
+                                    this.repaint();
+                                } else {
+                                    JOptionPane.showMessageDialog(this, "User already exist", "Message", JOptionPane.WARNING_MESSAGE);
+                                }
+                            }
+                        } catch (ManagerException ex) {
+                            JOptionPane.showMessageDialog(this, "" + ex.getMessage(), "Message", JOptionPane.WARNING_MESSAGE);
+                        } catch (InputOutputException ex) {
+                            JOptionPane.showMessageDialog(this, "" + ex.getMessage(), "Message", JOptionPane.WARNING_MESSAGE);
                         }
                     }
                 } catch (ManagerException ex) {
                     JOptionPane.showMessageDialog(this, "" + ex.getMessage(), "Message", JOptionPane.WARNING_MESSAGE);
                 }
-            } else {
-                errorPass2.setVisible(true);
             }
         }
     }//GEN-LAST:event_addUserButtonMouseClicked
-
-    private void password2FocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_password2FocusLost
-        String pass1 = String.valueOf(password1.getPassword());
-        String pass2 = String.valueOf(password2.getPassword());
-        if (Manager.getManager().checkPassword(pass1, pass2)) {
-            errorPass2.setVisible(false);
-        } else {
-            errorPass2.setVisible(true);
-        }
-    }//GEN-LAST:event_password2FocusLost
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

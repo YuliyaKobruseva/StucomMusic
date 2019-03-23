@@ -253,7 +253,7 @@ public class ModifyScore extends javax.swing.JDialog {
             modifyButton.setEnabled(true);
             String codeScoreSelected = scoreSelected.getSelectedItem().toString();
             try {
-                Score scoreForModify = Manager.getManager().checkExistScore(codeScoreSelected);
+                Score scoreForModify = Manager.getManager().checkExistUserScore(codeScoreSelected);
                 this.codeScoreSelected.setText(scoreForModify.getCode());
                 titleScoreSelected.setText(scoreForModify.getTitle());
                 artistScoreSeleted.setText(scoreForModify.getArtist());

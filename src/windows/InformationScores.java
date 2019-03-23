@@ -5,6 +5,7 @@
  */
 package windows;
 
+import SwingTools.SwingTools;
 import controller.Manager;
 import exceptions.ManagerException;
 import java.util.ArrayList;
@@ -26,9 +27,9 @@ public class InformationScores extends javax.swing.JDialog {
     public InformationScores(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
-        Manager.getManager().setIcon(this, null);
-        Manager.getManager().generateSelect(instrumentSelected, "instrument");
-        Manager.getManager().generateSelect(difficultyLevel, "level");
+        SwingTools.getSwingTools().setIcon(this, null);
+        SwingTools.getSwingTools().generateSelect(instrumentSelected, "instrument");
+        SwingTools.getSwingTools().generateSelect(difficultyLevel, "level");
         instrumentSelected.setSelectedIndex(-1);
         difficultyLevel.setSelectedIndex(-1);
         panelInformation.setVisible(false);
@@ -131,14 +132,14 @@ public class InformationScores extends javax.swing.JDialog {
 
         isPrinted.setEditable(false);
 
-        previous.setText("Previous");
+        previous.setText("<< Previous");
         previous.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 previousMouseClicked(evt);
             }
         });
 
-        next.setText("Next");
+        next.setText("Next >>");
         next.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 nextMouseClicked(evt);
@@ -146,6 +147,8 @@ public class InformationScores extends javax.swing.JDialog {
         });
 
         total.setEditable(false);
+        total.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        total.setBorder(null);
 
         userLabel.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         userLabel.setText("User");
@@ -281,9 +284,8 @@ public class InformationScores extends javax.swing.JDialog {
 
     private void nextMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_nextMouseClicked
         counter++;
-        previous.setVisible(true);
+        previous.setVisible(true);        
         showData();
-
     }//GEN-LAST:event_nextMouseClicked
 
     private void previousMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_previousMouseClicked
@@ -325,32 +327,37 @@ public class InformationScores extends javax.swing.JDialog {
 
     private void showData() {
 
-        if (counter == 0) {
-            previous.setVisible(false);
-        } else if (counter == scores.size()-1) {
-            next.setVisible(false);
-        } else if (counter == 0 && scores.size() == 1) {
-            previous.setVisible(false);
-            next.setVisible(false);
-        } else if (counter > 0 && counter == scores.size()-1) {
-            next.setVisible(false);
-        } else if (counter > 0 && counter == scores.size()) {
-            next.setVisible(false);
+        try {
+            if (counter == 0 || scores.size() == 1) {
+                previous.setVisible(false);
+            }
+            
+            if ((counter == 0 && scores.size() == 1) || scores.size() == 1) {
+                previous.setVisible(false);
+                next.setVisible(false);
+            }
+            
+            if ((counter > 0 && counter == scores.size() - 1) || (counter > 0 && counter == scores.size()) || (counter > 0 && counter == scores.size())) {
+                next.setVisible(false);
+            }
+            
+            Score score = (Score) scores.get(counter);
+            total.setText(counter + 1 + " de " + scores.size());
+            code.setText(score.getCode());
+            title.setText(score.getTitle());
+            artist.setText(score.getArtist());
+            instrument.setText(score.getInstrument());
+            genre.setText(score.getGenre());
+            level.setText(score.getDifficultyLevel());
+            if (score.isIsPrinted()) {
+                isPrinted.setText("Yes");
+            } else {
+                isPrinted.setText("No");
+            }
+            userName.setText(Manager.getManager().scoreOwner(score.getCode()).getName());
+        } catch (ManagerException ex) {
+            //panel
         }
-        Score score = (Score) scores.get(counter);
-        total.setText(counter + 1 + " de " + scores.size());
-        code.setText(score.getCode());
-        title.setText(score.getTitle());
-        artist.setText(score.getArtist());
-        instrument.setText(score.getInstrument());
-        genre.setText(score.getGenre());
-        level.setText(score.getDifficultyLevel());
-        if (score.isIsPrinted()) {
-            isPrinted.setText("Yes");
-        } else {
-            isPrinted.setText("No");
-        }
-        userName.setText("");
 
     }
 

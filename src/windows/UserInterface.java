@@ -5,6 +5,7 @@
  */
 package windows;
 
+import SwingTools.SwingTools;
 import controller.Manager;
 import exceptions.ManagerException;
 import java.awt.Color;
@@ -24,14 +25,13 @@ public class UserInterface extends javax.swing.JFrame {
      */
     public UserInterface(User user) {
         initComponents();
-        Manager.getManager().setIcon(null, this);
+        SwingTools.getSwingTools().setIcon(null, this);
         helloText.setOpaque(false);
         helloText.setBackground(new Color(0, 0, 0, 0));
         Manager.getManager().setCurrentUser(user);
         helloText.setText("¡Welcome to StucomMusic, " + user.getName() + "!");
         if (user.getTypeUser().toString().equals("USER")) {
-            addUser.setVisible(false);
-            modifyUser.setVisible(false);
+            addUser.setVisible(false);            
             deleteUser.setVisible(false);
         }
     }
@@ -52,7 +52,7 @@ public class UserInterface extends javax.swing.JFrame {
         showScores = new javax.swing.JButton();
         showGlobalInformation = new javax.swing.JButton();
         addUser = new javax.swing.JButton();
-        modifyUser = new javax.swing.JButton();
+        settings = new javax.swing.JButton();
         deleteUser = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -106,10 +106,10 @@ public class UserInterface extends javax.swing.JFrame {
             }
         });
 
-        modifyUser.setText("Modify User");
-        modifyUser.addMouseListener(new java.awt.event.MouseAdapter() {
+        settings.setText("Settings");
+        settings.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                modifyUserMouseClicked(evt);
+                settingsMouseClicked(evt);
             }
         });
 
@@ -125,30 +125,27 @@ public class UserInterface extends javax.swing.JFrame {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
+                .addGap(46, 46, 46)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(177, 177, 177)
-                        .addComponent(showScores, javax.swing.GroupLayout.PREFERRED_SIZE, 240, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(51, 51, 51)
-                        .addComponent(showGlobalInformation, javax.swing.GroupLayout.PREFERRED_SIZE, 240, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addGap(292, 292, 292)
-                        .addComponent(modifyScore, javax.swing.GroupLayout.PREFERRED_SIZE, 240, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(48, 48, 48)
-                        .addComponent(deleteScore, javax.swing.GroupLayout.PREFERRED_SIZE, 240, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(46, 46, 46)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(helloText, javax.swing.GroupLayout.PREFERRED_SIZE, 810, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(addUser, javax.swing.GroupLayout.PREFERRED_SIZE, 240, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(addScore, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 240, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGap(45, 45, 45)
-                                .addComponent(modifyUser, javax.swing.GroupLayout.PREFERRED_SIZE, 240, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(deleteUser, javax.swing.GroupLayout.PREFERRED_SIZE, 240, javax.swing.GroupLayout.PREFERRED_SIZE)))))
-                .addContainerGap(52, Short.MAX_VALUE))
+                                    .addComponent(addScore, javax.swing.GroupLayout.PREFERRED_SIZE, 240, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(deleteScore, javax.swing.GroupLayout.PREFERRED_SIZE, 240, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGap(50, 50, 50)
+                                .addComponent(showScores, javax.swing.GroupLayout.PREFERRED_SIZE, 240, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(modifyScore, javax.swing.GroupLayout.PREFERRED_SIZE, 240, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(50, 50, 50)
+                                .addComponent(showGlobalInformation, javax.swing.GroupLayout.PREFERRED_SIZE, 240, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(40, 40, 40)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(addUser, javax.swing.GroupLayout.PREFERRED_SIZE, 240, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(settings, javax.swing.GroupLayout.PREFERRED_SIZE, 240, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(deleteUser, javax.swing.GroupLayout.PREFERRED_SIZE, 240, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addComponent(helloText, javax.swing.GroupLayout.PREFERRED_SIZE, 810, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(90, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -156,21 +153,20 @@ public class UserInterface extends javax.swing.JFrame {
                 .addGap(44, 44, 44)
                 .addComponent(helloText, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(42, 42, 42)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(addScore, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(modifyScore, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(deleteScore, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addComponent(showScores, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(settings, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(35, 35, 35)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(showScores, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(showGlobalInformation, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(showGlobalInformation, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(modifyScore, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(addUser, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(39, 39, 39)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(addUser, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(modifyUser, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(deleteScore, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(deleteUser, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(0, 96, Short.MAX_VALUE))
+                .addContainerGap(87, Short.MAX_VALUE))
         );
 
         pack();
@@ -192,7 +188,7 @@ public class UserInterface extends javax.swing.JFrame {
      */
     private void modifyScoreMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_modifyScoreMouseClicked
          try {
-            if (Manager.getManager().allScores().isEmpty()) {
+            if (Manager.getManager().getCurrentUser().getScores().isEmpty()) {
                 throw new ManagerException(ManagerException.SCORES_EMPTY);
             } else {
                 ModifyScore modifyScore = new ModifyScore(this, true);
@@ -212,7 +208,7 @@ public class UserInterface extends javax.swing.JFrame {
      */
     private void deleteScoreMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_deleteScoreMouseClicked
          try {
-            if (Manager.getManager().allScores().isEmpty()) {
+            if (Manager.getManager().getCurrentUser().getScores().isEmpty()) {
                 throw new ManagerException(ManagerException.SCORES_EMPTY);
             } else {
                 DeleteScore deleteScore = new DeleteScore(this, true);
@@ -258,11 +254,11 @@ public class UserInterface extends javax.swing.JFrame {
      *
      * @param evt
      */
-    private void modifyUserMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_modifyUserMouseClicked
-        ModifyUser modifyUser = new ModifyUser(this, true);
+    private void settingsMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_settingsMouseClicked
+        Settings modifyUser = new Settings(this, true);
         modifyUser.setLocationRelativeTo(null);
         modifyUser.setVisible(true);
-    }//GEN-LAST:event_modifyUserMouseClicked
+    }//GEN-LAST:event_settingsMouseClicked
 
     /**
      *
@@ -292,7 +288,7 @@ public class UserInterface extends javax.swing.JFrame {
     private javax.swing.JButton deleteUser;
     private javax.swing.JTextField helloText;
     private javax.swing.JButton modifyScore;
-    private javax.swing.JButton modifyUser;
+    private javax.swing.JButton settings;
     private javax.swing.JButton showGlobalInformation;
     private javax.swing.JButton showScores;
     // End of variables declaration//GEN-END:variables

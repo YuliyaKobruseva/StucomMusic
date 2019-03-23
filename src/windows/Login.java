@@ -5,7 +5,9 @@
  */
 package windows;
 
+import SwingTools.SwingTools;
 import controller.Manager;
+import exceptions.InputOutputException;
 import exceptions.ManagerException;
 import java.awt.event.KeyEvent;
 import javax.swing.JOptionPane;
@@ -26,9 +28,13 @@ public class Login extends javax.swing.JDialog {
     public Login(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
-        Manager.getManager().setIcon(this, null);
+        SwingTools.getSwingTools().setIcon(this, null);
         InputOutputFile.createFolderData();
-        Manager.getManager().initData();
+        try {
+            Manager.getManager().initData();
+        } catch (InputOutputException ex) {
+            JOptionPane.showMessageDialog(this, "" + ex.getMessage(), "Message", JOptionPane.WARNING_MESSAGE);
+        }
     }
 
     /**

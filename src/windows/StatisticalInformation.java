@@ -5,11 +5,11 @@
  */
 package windows;
 
+import SwingTools.SwingTools;
 import controller.Manager;
 import exceptions.ManagerException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.JOptionPane;
+
 /**
  *
  * @author Yuli
@@ -18,19 +18,22 @@ public class StatisticalInformation extends javax.swing.JDialog {
 
     /**
      * Creates new form StatisticalInformation
+     *
+     * @param parent
+     * @param modal
      */
     public StatisticalInformation(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
-        Manager.getManager().setIcon(this, null);
+        SwingTools.getSwingTools().setIcon(this, null);
         try {
             quantity.setText(String.valueOf(Manager.getManager().allScores().size()));
-            Manager.getManager().createTable(tableGenre, "genre");
-            Manager.getManager().createTable(tableInstrument, "instrument");
-            Manager.getManager().createTable(tableLevel, "level");
+            SwingTools.getSwingTools().createTable(tableGenre, "genre");
+            SwingTools.getSwingTools().createTable(tableInstrument, "instrument");
+            SwingTools.getSwingTools().createTable(tableLevel, "level");
         } catch (ManagerException ex) {
             JOptionPane.showMessageDialog(this, "" + ex.getMessage(), "Message", JOptionPane.WARNING_MESSAGE);
-        }        
+        }
     }
 
     /**

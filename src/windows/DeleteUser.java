@@ -5,13 +5,12 @@
  */
 package windows;
 
+import SwingTools.SwingTools;
 import controller.Manager;
+import exceptions.InputOutputException;
 import exceptions.ManagerException;
 import java.awt.event.KeyEvent;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.JOptionPane;
-import model.score.Score;
 import model.user.User;
 
 /**
@@ -26,8 +25,8 @@ public class DeleteUser extends javax.swing.JDialog {
     public DeleteUser(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
-        Manager.getManager().setIcon(this, null);
-        Manager.getManager().generateSelect(userSelected, "user");
+        SwingTools.getSwingTools().setIcon(this, null);
+        SwingTools.getSwingTools().generateSelect(userSelected, "user");
     }
 
     /**
@@ -102,7 +101,7 @@ public class DeleteUser extends javax.swing.JDialog {
         }
     }//GEN-LAST:event_deleteUserButtonKeyPressed
 
-       private void delete() {
+    private void delete() {
         if (userSelected.getSelectedIndex() == -1) {
             JOptionPane.showMessageDialog(this, "User not selected", "Message", JOptionPane.WARNING_MESSAGE);
         } else {
@@ -118,13 +117,14 @@ public class DeleteUser extends javax.swing.JDialog {
                         if (Manager.getManager().deleteUser(userForDelete)) {
                             JOptionPane.showMessageDialog(this, "User deleted successful", "Message", JOptionPane.INFORMATION_MESSAGE);
                             userSelected.removeAllItems();
-                            Manager.getManager().generateSelect(userSelected, "user");
+                            SwingTools.getSwingTools().generateSelect(userSelected, "user");
                         } else {
                             JOptionPane.showMessageDialog(this, "hola", "Error", JOptionPane.ERROR_MESSAGE);
                         }
                     }
-
                 } catch (ManagerException ex) {
+                    JOptionPane.showMessageDialog(this, "" + ex.getMessage(), "Message", JOptionPane.WARNING_MESSAGE);
+                } catch (InputOutputException ex) {
                     JOptionPane.showMessageDialog(this, "" + ex.getMessage(), "Message", JOptionPane.WARNING_MESSAGE);
                 }
             }

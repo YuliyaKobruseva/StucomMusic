@@ -5,9 +5,10 @@
  */
 package windows;
 
+import SwingTools.SwingTools;
 import controller.Manager;
+import exceptions.InputOutputException;
 import exceptions.ManagerException;
-import java.awt.Toolkit;
 import javax.swing.JOptionPane;
 
 /**
@@ -22,9 +23,9 @@ public class NewScore extends javax.swing.JDialog {
     public NewScore(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
-        Manager.getManager().setIcon(this, null);
-        Manager.getManager().generateSelect(genreScore, "genre");
-        Manager.getManager().generateSelect(instrument, "instrument");
+        SwingTools.getSwingTools().setIcon(this, null);
+        SwingTools.getSwingTools().generateSelect(genreScore, "genre");
+        SwingTools.getSwingTools().generateSelect(instrument, "instrument");
     }
 
     /**
@@ -54,6 +55,9 @@ public class NewScore extends javax.swing.JDialog {
         high = new javax.swing.JRadioButton();
         labelForGender = new javax.swing.JLabel();
         genreScore = new javax.swing.JComboBox<>();
+        jLabel1 = new javax.swing.JLabel();
+        jLabel2 = new javax.swing.JLabel();
+        jLabel3 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("New Score");
@@ -103,6 +107,15 @@ public class NewScore extends javax.swing.JDialog {
         labelForGender.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         labelForGender.setText("Gender");
 
+        jLabel1.setForeground(new java.awt.Color(255, 0, 0));
+        jLabel1.setText("*");
+
+        jLabel2.setForeground(new java.awt.Color(255, 0, 0));
+        jLabel2.setText("*");
+
+        jLabel3.setForeground(new java.awt.Color(255, 0, 0));
+        jLabel3.setText("*");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -119,13 +132,6 @@ public class NewScore extends javax.swing.JDialog {
                     .addComponent(labelForGender, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 218, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addComponent(genreScore, javax.swing.GroupLayout.PREFERRED_SIZE, 385, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(codeScore, javax.swing.GroupLayout.DEFAULT_SIZE, 385, Short.MAX_VALUE)
-                            .addComponent(titleScore)
-                            .addComponent(artistScore))
-                        .addComponent(instrument, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 385, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(addNewScore, javax.swing.GroupLayout.PREFERRED_SIZE, 231, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
@@ -139,8 +145,21 @@ public class NewScore extends javax.swing.JDialog {
                                 .addComponent(high))
                             .addGroup(layout.createSequentialGroup()
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(isPrinted, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)))))
-                .addGap(83, 83, 83))
+                                .addComponent(isPrinted, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(genreScore, javax.swing.GroupLayout.PREFERRED_SIZE, 385, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                .addComponent(codeScore, javax.swing.GroupLayout.DEFAULT_SIZE, 385, Short.MAX_VALUE)
+                                .addComponent(titleScore)
+                                .addComponent(artistScore))
+                            .addComponent(instrument, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 385, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addGap(57, 57, 57))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -148,15 +167,18 @@ public class NewScore extends javax.swing.JDialog {
                 .addGap(68, 68, 68)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(labelForCode, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(codeScore, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(codeScore, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(labelForTitle, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(titleScore, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(titleScore, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(labelForArtist, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(artistScore, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(artistScore, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(genreScore, javax.swing.GroupLayout.DEFAULT_SIZE, 46, Short.MAX_VALUE)
@@ -189,22 +211,29 @@ public class NewScore extends javax.swing.JDialog {
         String artist = artistScore.getText();
         String gender = genreScore.getSelectedItem().toString();
         String instrumentScore = this.instrument.getSelectedItem().toString();
-        String difficultyLevelScore = Manager.getManager().getSelectedButtonText(difficultyLevel);
+        String difficultyLevelScore = SwingTools.getSwingTools().getSelectedButtonText(difficultyLevel);
         boolean isPrintedScore = this.isPrinted.isSelected();
-        try {
-            if (Manager.getManager().addNewScore(code, title, artist, instrumentScore, gender, difficultyLevelScore, isPrintedScore)) {
-                JOptionPane.showMessageDialog(this, "Score added successful", "Message", JOptionPane.INFORMATION_MESSAGE);
-                codeScore.setText("");
-                titleScore.setText("");
-                artistScore.setText("");
-//                genreScore.setSelectedItem();
-//                instrument.setSelectedItem();
-//                difficultyLevel.setSelected(m, isPrintedScore);
-            } else {
-                throw new ManagerException(ManagerException.SCORE_EXIST);
+        if (code.equalsIgnoreCase("") || title.equalsIgnoreCase("") || artist.equalsIgnoreCase("")) {
+            JOptionPane.showMessageDialog(this, "You have not filled in all the fields", "Message", JOptionPane.INFORMATION_MESSAGE);
+        } else {
+            try {
+                if (Manager.getManager().addNewScore(code, title, artist, instrumentScore, gender, difficultyLevelScore, isPrintedScore)) {
+                    JOptionPane.showMessageDialog(this, "Score added successful", "Message", JOptionPane.INFORMATION_MESSAGE);
+                    codeScore.setText("");
+                    titleScore.setText("");
+                    artistScore.setText("");
+                    genreScore.setSelectedIndex(0);
+                    instrument.setSelectedIndex(0);
+                    difficultyLevel.setSelected(low.getModel(), true);
+                    isPrinted.setSelected(false);
+                } else {
+                    throw new ManagerException(ManagerException.SCORE_EXIST);
+                }
+            } catch (ManagerException ex) {
+                JOptionPane.showMessageDialog(this, "" + ex.getMessage(), "Message", JOptionPane.WARNING_MESSAGE);
+            } catch (InputOutputException ex) {
+                JOptionPane.showMessageDialog(this, "" + ex.getMessage(), "Message", JOptionPane.WARNING_MESSAGE);
             }
-        } catch (ManagerException ex) {
-            JOptionPane.showMessageDialog(this, "" + ex.getMessage(), "Message", JOptionPane.WARNING_MESSAGE);
         }
     }//GEN-LAST:event_addNewScoreMouseClicked
 
@@ -218,6 +247,9 @@ public class NewScore extends javax.swing.JDialog {
     private javax.swing.JRadioButton high;
     private javax.swing.JComboBox<String> instrument;
     private javax.swing.JCheckBox isPrinted;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel labelForArtist;
     private javax.swing.JLabel labelForCode;
     private javax.swing.JLabel labelForDifficultyLevel;

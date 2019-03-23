@@ -319,7 +319,7 @@
         </Component>
         <Component class="javax.swing.JButton" name="previous">
           <Properties>
-            <Property name="text" type="java.lang.String" value="Previous"/>
+            <Property name="text" type="java.lang.String" value="&lt;&lt; Previous"/>
           </Properties>
           <Events>
             <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="previousMouseClicked"/>
@@ -327,7 +327,7 @@
         </Component>
         <Component class="javax.swing.JButton" name="next">
           <Properties>
-            <Property name="text" type="java.lang.String" value="Next"/>
+            <Property name="text" type="java.lang.String" value="Next &gt;&gt;"/>
           </Properties>
           <Events>
             <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="nextMouseClicked"/>
@@ -336,6 +336,10 @@
         <Component class="javax.swing.JTextField" name="total">
           <Properties>
             <Property name="editable" type="boolean" value="false"/>
+            <Property name="horizontalAlignment" type="int" value="0"/>
+            <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
+              <Border info="null"/>
+            </Property>
           </Properties>
         </Component>
         <Component class="javax.swing.JLabel" name="userLabel">

@@ -4,7 +4,7 @@
  * and open the template in the editor.
  */
 package persistence;
-
+import exceptions.InputOutputException;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
@@ -61,7 +61,7 @@ public class InputOutputFile {
      * @param users
      * @param nameFile
      */
-    public static void writeFile(HashSet<User> users, String nameFile) {
+    public static void writeFile(HashSet<User> users, String nameFile) throws InputOutputException {
         FileWriter fileWriter = null;
         try {
             fileWriter = new FileWriter(FOLDER_DATA + SEPARATOR + nameFile);
@@ -105,17 +105,14 @@ public class InputOutputFile {
                     fileWriter.append(NEW_LINE_SEPARATOR);
                 }
             }
-            System.out.println("CSV file was created successfully !!!");
-        } catch (IOException ex) {
-            System.out.println("Error in CsvFileWriter !!!");
-            ex.printStackTrace();
+                    } catch (IOException ex) {
+            throw new InputOutputException(InputOutputException.FILE_ERROR);            
         } finally {
             try {
                 fileWriter.flush();
                 fileWriter.close();
             } catch (IOException ex) {
-                System.out.println("Error while flushing/closing fileWriter !!!");
-                ex.printStackTrace();
+                throw new InputOutputException(InputOutputException.CLOSE_OR_FLUSHING_FILE_ERROR);                 
             }
         }
     }
@@ -125,7 +122,7 @@ public class InputOutputFile {
      * @param users
      * @param fileName
      */
-    public static boolean readFromFile(HashSet<User> users, String fileName) {
+    public static boolean readFromFile(HashSet<User> users, String fileName) throws InputOutputException {
         File file = new File(FOLDER_DATA + SEPARATOR + fileName);
         if (file.exists()) {
             BufferedReader fileReader = null;
@@ -157,14 +154,12 @@ public class InputOutputFile {
                     }
                 }
             } catch (Exception e) {
-                System.out.println("Error in CsvFileReader !!!");
-                e.printStackTrace();
+                 throw new InputOutputException(InputOutputException.FILE_ERROR);                   
             } finally {
                 try {
                     fileReader.close();
                 } catch (IOException e) {
-                    System.out.println("Error while closing fileReader !!!");
-                    e.printStackTrace();
+                    throw new InputOutputException(InputOutputException.CLOSE_FILE_ERROR);                     
                 }
             }
             return true;
@@ -177,16 +172,16 @@ public class InputOutputFile {
      *
      * @param nameFile user file name
      */
-    public static void deleteFile(String nameFile) {
+    public static void deleteFile(String nameFile) throws InputOutputException {
         try {
             File file = new File(FOLDER_DATA + SEPARATOR + nameFile);
-            if (file.delete()) {
-                System.out.println(file.getName() + " is deleted!");
-            } else {
-                System.out.println("Delete operation is failed.");
+            if (file.exists()) {
+                if (file.delete()) {
+                    System.out.println(file.getName() + " is deleted!");
+                }
             }
         } catch (Exception e) {
-            e.printStackTrace();
+            throw new InputOutputException(InputOutputException.DELETE_FILE_ERROR); 
         }
     }
 

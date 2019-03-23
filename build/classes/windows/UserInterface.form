@@ -25,37 +25,34 @@
     <DimensionLayout dim="0">
       <Group type="103" groupAlignment="0" attributes="0">
           <Group type="102" attributes="0">
+              <EmptySpace min="46" pref="46" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="0" attributes="0">
                   <Group type="102" alignment="0" attributes="0">
-                      <EmptySpace min="-2" pref="177" max="-2" attributes="0"/>
-                      <Component id="showScores" min="-2" pref="240" max="-2" attributes="0"/>
-                      <EmptySpace min="-2" pref="51" max="-2" attributes="0"/>
-                      <Component id="showGlobalInformation" min="-2" pref="240" max="-2" attributes="0"/>
-                  </Group>
-                  <Group type="102" alignment="1" attributes="0">
-                      <EmptySpace min="-2" pref="292" max="-2" attributes="0"/>
-                      <Component id="modifyScore" min="-2" pref="240" max="-2" attributes="0"/>
-                      <EmptySpace min="-2" pref="48" max="-2" attributes="0"/>
-                      <Component id="deleteScore" min="-2" pref="240" max="-2" attributes="0"/>
-                  </Group>
-                  <Group type="102" alignment="0" attributes="0">
-                      <EmptySpace min="46" pref="46" max="-2" attributes="0"/>
-                      <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                          <Component id="helloText" min="-2" pref="810" max="-2" attributes="0"/>
-                          <Group type="102" attributes="0">
+                      <Group type="103" groupAlignment="0" attributes="0">
+                          <Group type="102" alignment="0" attributes="0">
                               <Group type="103" groupAlignment="0" attributes="0">
-                                  <Component id="addUser" alignment="0" min="-2" pref="240" max="-2" attributes="0"/>
-                                  <Component id="addScore" alignment="1" min="-2" pref="240" max="-2" attributes="0"/>
+                                  <Component id="addScore" min="-2" pref="240" max="-2" attributes="0"/>
+                                  <Component id="deleteScore" alignment="0" min="-2" pref="240" max="-2" attributes="0"/>
                               </Group>
-                              <EmptySpace min="-2" pref="45" max="-2" attributes="0"/>
-                              <Component id="modifyUser" min="-2" pref="240" max="-2" attributes="0"/>
-                              <EmptySpace max="32767" attributes="0"/>
-                              <Component id="deleteUser" min="-2" pref="240" max="-2" attributes="0"/>
+                              <EmptySpace min="-2" pref="50" max="-2" attributes="0"/>
+                              <Component id="showScores" min="-2" pref="240" max="-2" attributes="0"/>
+                          </Group>
+                          <Group type="102" alignment="0" attributes="0">
+                              <Component id="modifyScore" min="-2" pref="240" max="-2" attributes="0"/>
+                              <EmptySpace min="-2" pref="50" max="-2" attributes="0"/>
+                              <Component id="showGlobalInformation" min="-2" pref="240" max="-2" attributes="0"/>
                           </Group>
                       </Group>
+                      <EmptySpace min="-2" pref="40" max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="1" attributes="0">
+                          <Component id="addUser" min="-2" pref="240" max="-2" attributes="0"/>
+                          <Component id="settings" min="-2" pref="240" max="-2" attributes="0"/>
+                          <Component id="deleteUser" min="-2" pref="240" max="-2" attributes="0"/>
+                      </Group>
                   </Group>
+                  <Component id="helloText" min="-2" pref="810" max="-2" attributes="0"/>
               </Group>
-              <EmptySpace pref="52" max="32767" attributes="0"/>
+              <EmptySpace pref="90" max="32767" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -65,25 +62,23 @@
               <EmptySpace min="-2" pref="44" max="-2" attributes="0"/>
               <Component id="helloText" min="-2" pref="41" max="-2" attributes="0"/>
               <EmptySpace min="-2" pref="42" max="-2" attributes="0"/>
-              <Group type="103" groupAlignment="0" attributes="0">
-                  <Component id="addScore" min="-2" pref="44" max="-2" attributes="0"/>
-                  <Group type="103" groupAlignment="3" attributes="0">
-                      <Component id="modifyScore" alignment="3" min="-2" pref="41" max="-2" attributes="0"/>
-                      <Component id="deleteScore" alignment="3" min="-2" pref="42" max="-2" attributes="0"/>
-                  </Group>
+              <Group type="103" groupAlignment="3" attributes="0">
+                  <Component id="addScore" alignment="3" min="-2" pref="44" max="-2" attributes="0"/>
+                  <Component id="showScores" alignment="3" min="-2" pref="39" max="-2" attributes="0"/>
+                  <Component id="settings" alignment="3" min="-2" pref="43" max="-2" attributes="0"/>
               </Group>
               <EmptySpace min="-2" pref="35" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
-                  <Component id="showScores" alignment="3" min="-2" pref="39" max="-2" attributes="0"/>
                   <Component id="showGlobalInformation" alignment="3" min="-2" pref="44" max="-2" attributes="0"/>
+                  <Component id="modifyScore" alignment="3" min="-2" pref="41" max="-2" attributes="0"/>
+                  <Component id="addUser" alignment="3" min="-2" pref="45" max="-2" attributes="0"/>
               </Group>
               <EmptySpace min="-2" pref="39" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
-                  <Component id="addUser" alignment="3" min="-2" pref="45" max="-2" attributes="0"/>
-                  <Component id="modifyUser" alignment="3" min="-2" pref="43" max="-2" attributes="0"/>
+                  <Component id="deleteScore" alignment="3" min="-2" pref="42" max="-2" attributes="0"/>
                   <Component id="deleteUser" alignment="3" min="-2" pref="43" max="-2" attributes="0"/>
               </Group>
-              <EmptySpace min="0" pref="96" max="32767" attributes="0"/>
+              <EmptySpace pref="87" max="32767" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -152,12 +147,12 @@
         <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="addUserMouseClicked"/>
       </Events>
     </Component>
-    <Component class="javax.swing.JButton" name="modifyUser">
+    <Component class="javax.swing.JButton" name="settings">
       <Properties>
-        <Property name="text" type="java.lang.String" value="Modify User"/>
+        <Property name="text" type="java.lang.String" value="Settings"/>
       </Properties>
       <Events>
-        <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="modifyUserMouseClicked"/>
+        <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="settingsMouseClicked"/>
       </Events>
     </Component>
     <Component class="javax.swing.JButton" name="deleteUser">

@@ -5,23 +5,11 @@
  */
 package controller;
 
+import exceptions.InputOutputException;
 import exceptions.ManagerException;
-import java.awt.Toolkit;
 import java.util.ArrayList;
-import java.util.Enumeration;
 import java.util.HashSet;
-import java.util.Map;
 import java.util.TreeMap;
-import javax.swing.AbstractButton;
-import javax.swing.ButtonGroup;
-import javax.swing.JComboBox;
-import javax.swing.JDialog;
-import javax.swing.JFrame;
-import javax.swing.JTable;
-import javax.swing.table.DefaultTableModel;
-import model.enums.TypeDifficultyLevel;
-import model.enums.TypeGenre;
-import model.enums.TypeInstrument;
 import model.score.Score;
 import model.user.User;
 import persistence.InputOutputFile;
@@ -31,10 +19,19 @@ import persistence.InputOutputFile;
  * @author Yuli
  */
 public class Manager {
-
+    
     private HashSet<User> users;
     private static Manager manager;
     private User currentUser;
+
+    /**
+     * Get the value of users
+     *
+     * @return the value of users
+     */
+    public HashSet<User> getUsers() {
+        return users;
+    }
 
     /**
      * Get the value of currentUser
@@ -75,13 +72,13 @@ public class Manager {
     /**
      * This method load data from file
      *
+     * @throws exceptions.InputOutputException
      */
-    public void initData() {
-
+    public void initData() throws InputOutputException {
         if (InputOutputFile.readFromFile(users, "users")) {
-            users.forEach((user) -> {
+            for (User user : users) {
                 InputOutputFile.readFromFile(users, user.getName());
-            });
+            }
         } else {
             users.add(new User("admin", "admin", true));
             InputOutputFile.writeFile(users, "users");
@@ -121,9 +118,10 @@ public class Manager {
      * @param isPrinted
      * @return
      * @throws ManagerException
+     * @throws exceptions.InputOutputException
      */
-    public boolean addNewScore(String code, String title, String artist, String instrument, String genre, String difficultyLevel, boolean isPrinted) throws ManagerException {
-        if (checkExistScore(code) != null) {
+    public boolean addNewScore(String code, String title, String artist, String instrument, String genre, String difficultyLevel, boolean isPrinted) throws ManagerException, InputOutputException {
+        if (checkExistUserScore(code) != null) {
             throw new ManagerException(ManagerException.SCORE_EXIST);
         } else {
             Score newScore = new Score(code, title, artist, instrument, genre, difficultyLevel, isPrinted);
@@ -143,8 +141,9 @@ public class Manager {
      * @param difficultyLevel
      * @param isPrinted
      * @return
+     * @throws exceptions.InputOutputException
      */
-    public boolean modifyScore(String code, String title, String artist, String instrument, String genre, String difficultyLevel, boolean isPrinted) {
+    public boolean modifyScore(String code, String title, String artist, String instrument, String genre, String difficultyLevel, boolean isPrinted) throws InputOutputException {
         Score modifiedScore = new Score(code, title, artist, instrument, genre, difficultyLevel, isPrinted);
         if (currentUser.setScores(modifiedScore) != null) {
             InputOutputFile.writeFile(users, currentUser.getName());
@@ -157,8 +156,9 @@ public class Manager {
      *
      * @param score
      * @return
+     * @throws exceptions.InputOutputException
      */
-    public boolean deleteScore(Score score) {
+    public boolean deleteScore(Score score) throws InputOutputException {
         if (currentUser.getScores().remove(score.getCode()) != null) {
             InputOutputFile.writeFile(users, currentUser.getName());
             return true;
@@ -172,8 +172,9 @@ public class Manager {
      * @param password
      * @param isAdmin
      * @return
+     * @throws exceptions.InputOutputException
      */
-    public boolean addNewUser(String name, String password, boolean isAdmin) {
+    public boolean addNewUser(String name, String password, boolean isAdmin) throws InputOutputException {
         if (users.add(new User(name, password, isAdmin))) {
             InputOutputFile.writeFile(users, "users");
             return true;
@@ -185,8 +186,10 @@ public class Manager {
      *
      * @param user
      * @return
+     * @throws exceptions.ManagerException
+     * @throws exceptions.InputOutputException
      */
-    public boolean deleteUser(User user) throws ManagerException {
+    public boolean deleteUser(User user) throws ManagerException, InputOutputException {
         if (user.equals(currentUser)) {
             throw new ManagerException(ManagerException.CURRENT_USER);
         } else {
@@ -203,15 +206,13 @@ public class Manager {
      *
      * @param code
      * @return
+     * @throws exceptions.ManagerException
      */
-    public Score checkExistScore(String code) throws ManagerException {
+    public Score checkExistUserScore(String code) throws ManagerException {
         Score scoreExist = null;
-        TreeMap<String, Score> userScores = Manager.getManager().getCurrentUser().getScores();
-        if (!userScores.isEmpty()) {
-            for (Map.Entry<String, Score> searchScore : userScores.entrySet()) {
-                if (code.equalsIgnoreCase(searchScore.getKey())) {
-                    scoreExist = searchScore.getValue();
-                }
+        if (!currentUser.getScores().isEmpty()) {
+            if (currentUser.getScores().containsKey(code)) {
+                scoreExist = (Score) currentUser.getScores().get(code);
             }
         }
         return scoreExist;
@@ -221,6 +222,7 @@ public class Manager {
      *
      * @param userName
      * @return
+     * @throws exceptions.ManagerException
      */
     public User checkExistUser(String userName) throws ManagerException {
         User user = null;
@@ -241,38 +243,10 @@ public class Manager {
      * @param password1
      * @param password2
      * @return
+     * @throws exceptions.ManagerException
      */
-    public boolean checkPassword(String password1, String password2) {
+    public boolean checkPassword(String password1, String password2) throws ManagerException {
         return password1.equals(password2);
-    }
-
-    /**
-     *
-     * @param buttonGroup
-     * @return
-     */
-    public String getSelectedButtonText(ButtonGroup buttonGroup) {
-        for (Enumeration buttons = buttonGroup.getElements(); buttons.hasMoreElements();) {
-            AbstractButton button = (AbstractButton) buttons.nextElement();
-            if (button.isSelected()) {
-                return button.getText();
-            }
-        }
-        return null;
-    }
-
-    /**
-     *
-     * @param buttonSelected
-     * @param buttonGroup
-     */
-    public void setSelectedButtonText(String buttonSelected, ButtonGroup buttonGroup) {
-        for (Enumeration buttons = buttonGroup.getElements(); buttons.hasMoreElements();) {
-            AbstractButton button = (AbstractButton) buttons.nextElement();
-            if (button.getText().equalsIgnoreCase(buttonSelected)) {
-                button.setSelected(true);
-            }
-        }
     }
 
     /**
@@ -280,10 +254,11 @@ public class Manager {
      * @param typeInstrument
      * @param level
      * @return
+     * @throws exceptions.ManagerException
      */
     public ArrayList selectedScores(String typeInstrument, String level) throws ManagerException {
         ArrayList<Score> scores = allScores();
-        ArrayList<Score> scoresSearch = null;
+        ArrayList<Score> scoresSearch = new ArrayList<>();
         if (!scores.isEmpty()) {
             if ((!typeInstrument.equalsIgnoreCase("") && !level.equalsIgnoreCase(""))
                     || (typeInstrument.equalsIgnoreCase("") && !level.equalsIgnoreCase(""))
@@ -307,22 +282,15 @@ public class Manager {
                         }
                     }
                 }
+                scores = scoresSearch;
             }
         }
-        scores = scoresSearch;
         return scores;
     }
 
-//    public ArrayList positionsScores(TreeMap<String, Score> scores){
-//        ArrayList<String> positions= new ArrayList<String>();
-//        scores.entrySet().forEach((score) -> {
-//            positions.add(score.getValue().getTitle());
-//        });
-//        return positions;
-//    }
     /**
      *
-     * @return
+     * @return @throws exceptions.ManagerException
      */
     public ArrayList allScores() throws ManagerException {
         ArrayList<Score> allScores = new ArrayList();
@@ -343,40 +311,10 @@ public class Manager {
 
     /**
      *
-     * @param comboBox
-     * @param typeComboBox
-     */
-    public void generateSelect(JComboBox<String> comboBox, String typeComboBox) {
-        switch (typeComboBox) {
-            case "genre":
-                for (TypeGenre genre : TypeGenre.values()) {
-                    comboBox.addItem(genre.toString());
-                }
-                break;
-            case "instrument":
-                for (TypeInstrument genre : TypeInstrument.values()) {
-                    comboBox.addItem(genre.toString());
-                }
-                break;
-            case "level":
-                for (TypeDifficultyLevel level : TypeDifficultyLevel.values()) {
-                    comboBox.addItem(level.toString());
-                }
-                break;
-            case "user":
-                users.forEach((user) -> {
-                    comboBox.addItem(user.getName());
-                });
-            default:
-                break;
-        }
-    }
-
-    /**
-     *
      * @param typeQuantity
      * @param typeQuantityName
      * @return
+     * @throws exceptions.ManagerException
      */
     public String quantityScores(String typeQuantity, String typeQuantityName) throws ManagerException {
         int quantity = 0;
@@ -406,62 +344,16 @@ public class Manager {
                     break;
             }
         }
-
         return String.valueOf(quantity);
     }
-
-    /**
-     *
-     * @param dialog
-     * @param frame
-     */
-    public void setIcon(JDialog dialog, JFrame frame) {
-        if (dialog == null) {
-            frame.setIconImage(Toolkit.getDefaultToolkit().getImage(getClass().getResource("iconLogin.png")));
-        } else {
-            dialog.setIconImage(Toolkit.getDefaultToolkit().getImage(getClass().getResource("iconLogin.png")));
-        }
-    }
-
-    /**
-     *
-     * @param newTable
-     * @param typeTable
-     */
-    public void createTable(JTable newTable, String typeTable) throws ManagerException {
-        ArrayList<String> columns = new ArrayList<>();
-        ArrayList<String> rows = new ArrayList<>();
-        if (typeTable.equalsIgnoreCase("level")) {
-            for (TypeDifficultyLevel level : TypeDifficultyLevel.values()) {
-                columns.add(level.toString());
-                rows.add(quantityScores(typeTable, level.toString()));
-            }
-        } else if (typeTable.equalsIgnoreCase("instrument")) {
-            for (TypeInstrument instrument : TypeInstrument.values()) {
-                columns.add(instrument.toString());
-                rows.add(quantityScores(typeTable, instrument.toString()));
-            }
-        } else if (typeTable.equalsIgnoreCase("genre")) {
-            for (TypeGenre genre : TypeGenre.values()) {
-                columns.add(genre.toString());
-                rows.add(quantityScores(typeTable, genre.toString()));
-            }
-        }
-        DefaultTableModel model = new DefaultTableModel(null, columns.toArray());
-        model.addRow(rows.toArray());
-        newTable.setModel(model);
-        newTable.setEnabled(false);
-    }
-
+    
     public User scoreOwner(String scoreCode) throws ManagerException {
         if (!users.isEmpty()) {
             for (User userApp : users) {
                 TreeMap<String, Score> userScores = userApp.getScores();
                 if (!userScores.isEmpty()) {
-                    for (Map.Entry<String, Score> score : userScores.entrySet()) {
-                        if (score.getValue().getCode().equalsIgnoreCase(scoreCode)) {
-                            return userApp;
-                        }
+                    if (userScores.containsKey(scoreCode)) {
+                        return userApp;
                     }
                 }
             }
@@ -470,4 +362,20 @@ public class Manager {
         }
         return null;
     }
+    
+    /**
+     * 
+     * @param password
+     * @param user 
+     * @throws exceptions.InputOutputException 
+     */
+    public void updateUserPassword(String password, User user) throws InputOutputException {
+        if (user.equals(currentUser)) {
+            currentUser.setPassword(password);            
+        } else {
+            user.setPassword(password);
+        }
+        InputOutputFile.writeFile(users, "users");
+    }
+    
 }

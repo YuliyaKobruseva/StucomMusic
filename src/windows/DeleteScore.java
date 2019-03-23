@@ -5,12 +5,12 @@
  */
 package windows;
 
+import SwingTools.SwingTools;
 import controller.Manager;
+import exceptions.InputOutputException;
 import exceptions.ManagerException;
 import java.util.Map;
 import java.util.TreeMap;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import model.score.Score;
 
@@ -26,7 +26,7 @@ public class DeleteScore extends javax.swing.JDialog {
     public DeleteScore(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
-        Manager.getManager().setIcon(this, null);
+        SwingTools.getSwingTools().setIcon(this, null);
         TreeMap<String, Score> userScores = Manager.getManager().getCurrentUser().getScores();
         for (Map.Entry<String, Score> codeScoreItem : userScores.entrySet()) {
             selectScore.addItem(codeScoreItem.getKey());
@@ -97,7 +97,7 @@ public class DeleteScore extends javax.swing.JDialog {
             if (optionSelected == 0) {
                 try {
                     String code = selectScore.getSelectedItem().toString();
-                    Score scoreForDelete = Manager.getManager().checkExistScore(code);
+                    Score scoreForDelete = Manager.getManager().checkExistUserScore(code);
                     if (scoreForDelete == null) {
                         JOptionPane.showMessageDialog(this, "Score not registred", "Message", JOptionPane.WARNING_MESSAGE);
                     } else {
@@ -109,6 +109,8 @@ public class DeleteScore extends javax.swing.JDialog {
                     }
                 } catch (ManagerException ex) {
                     JOptionPane.showMessageDialog(this, "" + ex.getMessage(), "Message", JOptionPane.WARNING_MESSAGE);
+                } catch (InputOutputException ex) {
+                   JOptionPane.showMessageDialog(this, "" + ex.getMessage(), "Message", JOptionPane.WARNING_MESSAGE);
                 }
             }
         }

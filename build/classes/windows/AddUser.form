@@ -124,9 +124,6 @@
     <Component class="javax.swing.JPasswordField" name="password1">
     </Component>
     <Component class="javax.swing.JPasswordField" name="password2">
-      <Events>
-        <EventHandler event="focusLost" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="password2FocusLost"/>
-      </Events>
     </Component>
     <Component class="javax.swing.JButton" name="addUserButton">
       <Properties>
