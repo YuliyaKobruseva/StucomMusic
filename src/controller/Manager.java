@@ -57,11 +57,11 @@ public class Manager {
      * @return singleton
      */
     public static synchronized Manager getManager() {
-        synchronized (Manager.class) {
-            if (manager == null) {
-                manager = new Manager();
-            }
+//        synchronized (Manager.class) {
+        if (manager == null) {
+            manager = new Manager();
         }
+//        }
         return manager;
     }
 

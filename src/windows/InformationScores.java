@@ -283,15 +283,12 @@ public class InformationScores extends javax.swing.JDialog {
 
     private void nextMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_nextMouseClicked
         counter++;
-        previous.setVisible(true);
         showData();
     }//GEN-LAST:event_nextMouseClicked
 
     private void previousMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_previousMouseClicked
         counter--;
-        next.setVisible(true);
         showData();
-
     }//GEN-LAST:event_previousMouseClicked
 
     private void showMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_showMouseClicked
@@ -323,10 +320,11 @@ public class InformationScores extends javax.swing.JDialog {
         } catch (ManagerException ex) {
             JOptionPane.showMessageDialog(this, ex.getMessage(), "Message", JOptionPane.WARNING_MESSAGE);
         }
-
     }//GEN-LAST:event_showMouseClicked
 
     private void showData() {
+        next.setVisible(true);
+        previous.setVisible(true);
         try {
             if (counter == 0 || scores.size() == 1) {
                 previous.setVisible(false);
