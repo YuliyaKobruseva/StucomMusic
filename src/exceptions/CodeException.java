@@ -24,6 +24,11 @@ public abstract class CodeException extends Exception {
         return CODE;
     }
 
+    /**
+     * Set value of code
+     *
+     * @param code new value of code
+     */
     public CodeException(int code) {
         this.CODE = code;
     }

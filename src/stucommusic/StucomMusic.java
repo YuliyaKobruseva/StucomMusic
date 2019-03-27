@@ -4,7 +4,6 @@
  * and open the template in the editor.
  */
 package stucommusic;
-import controller.Manager;
 import windows.Login;
 
 /**

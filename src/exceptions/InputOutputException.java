@@ -9,7 +9,7 @@ import java.util.Arrays;
 import java.util.List;
 
 /**
- * Exception of problems with commands
+ * Exception of problems with file
  *
  * @author Yuli
  */

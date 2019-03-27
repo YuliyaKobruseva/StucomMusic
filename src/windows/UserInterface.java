@@ -31,7 +31,7 @@ public class UserInterface extends javax.swing.JFrame {
         Manager.getManager().setCurrentUser(user);
         helloText.setText("¡Welcome to StucomMusic, " + user.getName() + "!");
         if (user.getTypeUser().toString().equals("USER")) {
-            addUser.setVisible(false);            
+            addUser.setVisible(false);
             deleteUser.setVisible(false);
         }
     }
@@ -65,58 +65,58 @@ public class UserInterface extends javax.swing.JFrame {
         helloText.setBorder(null);
 
         addScore.setText("Add Score");
-        addScore.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                addScoreMouseClicked(evt);
+        addScore.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                addScoreActionPerformed(evt);
             }
         });
 
         modifyScore.setText("Modify Score");
-        modifyScore.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                modifyScoreMouseClicked(evt);
+        modifyScore.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                modifyScoreActionPerformed(evt);
             }
         });
 
         deleteScore.setText("Delete Score");
-        deleteScore.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                deleteScoreMouseClicked(evt);
+        deleteScore.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                deleteScoreActionPerformed(evt);
             }
         });
 
         showScores.setText("Show Scores");
-        showScores.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                showScoresMouseClicked(evt);
+        showScores.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                showScoresActionPerformed(evt);
             }
         });
 
         showGlobalInformation.setText("Show Global Information");
-        showGlobalInformation.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                showGlobalInformationMouseClicked(evt);
+        showGlobalInformation.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                showGlobalInformationActionPerformed(evt);
             }
         });
 
         addUser.setText("Add User");
-        addUser.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                addUserMouseClicked(evt);
+        addUser.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                addUserActionPerformed(evt);
             }
         });
 
         settings.setText("Settings");
-        settings.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                settingsMouseClicked(evt);
+        settings.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                settingsActionPerformed(evt);
             }
         });
 
         deleteUser.setText("Delete User");
-        deleteUser.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                deleteUserMouseClicked(evt);
+        deleteUser.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                deleteUserActionPerformed(evt);
             }
         });
 
@@ -172,22 +172,26 @@ public class UserInterface extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    /**
-     *
-     * @param evt
-     */
-    private void addScoreMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_addScoreMouseClicked
+    private void deleteUserActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_deleteUserActionPerformed
+        DeleteUser deleteUser = new DeleteUser(this, true);
+        deleteUser.setLocationRelativeTo(null);
+        deleteUser.setVisible(true);
+    }//GEN-LAST:event_deleteUserActionPerformed
+
+    private void addScoreActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addScoreActionPerformed
         NewScore newScore = new NewScore(this, true);
         newScore.setLocationRelativeTo(null);
         newScore.setVisible(true);
-    }//GEN-LAST:event_addScoreMouseClicked
+    }//GEN-LAST:event_addScoreActionPerformed
 
-    /**
-     *
-     * @param evt
-     */
-    private void modifyScoreMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_modifyScoreMouseClicked
-         try {
+    private void addUserActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addUserActionPerformed
+        AddUser newUser = new AddUser(this, true);
+        newUser.setLocationRelativeTo(null);
+        newUser.setVisible(true);
+    }//GEN-LAST:event_addUserActionPerformed
+
+    private void modifyScoreActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_modifyScoreActionPerformed
+        try {
             if (Manager.getManager().getCurrentUser().getScores().isEmpty()) {
                 throw new ManagerException(ManagerException.SCORES_EMPTY);
             } else {
@@ -198,16 +202,10 @@ public class UserInterface extends javax.swing.JFrame {
         } catch (ManagerException ex) {
             JOptionPane.showMessageDialog(this, "" + ex.getMessage(), "Message", JOptionPane.WARNING_MESSAGE);
         }
-        
-        
-    }//GEN-LAST:event_modifyScoreMouseClicked
+    }//GEN-LAST:event_modifyScoreActionPerformed
 
-    /**
-     *
-     * @param evt
-     */
-    private void deleteScoreMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_deleteScoreMouseClicked
-         try {
+    private void deleteScoreActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_deleteScoreActionPerformed
+        try {
             if (Manager.getManager().getCurrentUser().getScores().isEmpty()) {
                 throw new ManagerException(ManagerException.SCORES_EMPTY);
             } else {
@@ -218,15 +216,9 @@ public class UserInterface extends javax.swing.JFrame {
         } catch (ManagerException ex) {
             JOptionPane.showMessageDialog(this, "" + ex.getMessage(), "Message", JOptionPane.WARNING_MESSAGE);
         }
-        
-        
-    }//GEN-LAST:event_deleteScoreMouseClicked
+    }//GEN-LAST:event_deleteScoreActionPerformed
 
-    /**
-     *
-     * @param evt
-     */
-    private void showScoresMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_showScoresMouseClicked
+    private void showScoresActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_showScoresActionPerformed
         try {
             if (Manager.getManager().allScores().isEmpty()) {
                 throw new ManagerException(ManagerException.SCORES_EMPTY);
@@ -238,47 +230,19 @@ public class UserInterface extends javax.swing.JFrame {
         } catch (ManagerException ex) {
             JOptionPane.showMessageDialog(this, "" + ex.getMessage(), "Message", JOptionPane.WARNING_MESSAGE);
         }
-    }//GEN-LAST:event_showScoresMouseClicked
+    }//GEN-LAST:event_showScoresActionPerformed
 
-    /**
-     *
-     * @param evt
-     */
-    private void showGlobalInformationMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_showGlobalInformationMouseClicked
+    private void showGlobalInformationActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_showGlobalInformationActionPerformed
         StatisticalInformation statisticalInformation = new StatisticalInformation(this, true);
         statisticalInformation.setLocationRelativeTo(null);
         statisticalInformation.setVisible(true);
-    }//GEN-LAST:event_showGlobalInformationMouseClicked
+    }//GEN-LAST:event_showGlobalInformationActionPerformed
 
-    /**
-     *
-     * @param evt
-     */
-    private void settingsMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_settingsMouseClicked
+    private void settingsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_settingsActionPerformed
         Settings modifyUser = new Settings(this, true);
         modifyUser.setLocationRelativeTo(null);
         modifyUser.setVisible(true);
-    }//GEN-LAST:event_settingsMouseClicked
-
-    /**
-     *
-     * @param evt
-     */
-    private void deleteUserMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_deleteUserMouseClicked
-        DeleteUser deleteUser = new DeleteUser(this, true);
-        deleteUser.setLocationRelativeTo(null);
-        deleteUser.setVisible(true);
-    }//GEN-LAST:event_deleteUserMouseClicked
-
-    /**
-     *
-     * @param evt
-     */
-    private void addUserMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_addUserMouseClicked
-        AddUser newUser = new AddUser(this, true);
-        newUser.setLocationRelativeTo(null);
-        newUser.setVisible(true);
-    }//GEN-LAST:event_addUserMouseClicked
+    }//GEN-LAST:event_settingsActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

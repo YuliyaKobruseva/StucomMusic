@@ -135,6 +135,9 @@ public class Login extends javax.swing.JDialog {
         }
     }//GEN-LAST:event_passwordKeyPressed
 
+    /**
+     * Method to realize signIn
+     */
     private void logIn() {
         try {
             String userSesion = user.getText();

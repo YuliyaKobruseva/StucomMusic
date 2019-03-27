@@ -37,9 +37,9 @@ public class SwingTools {
     }
 
     /**
-     *
-     * @param comboBox
-     * @param typeComboBox
+     * Methos to generate a comboBox
+     * @param comboBox 
+     * @param typeComboBox type of comboBox
      */
     public void generateSelect(JComboBox<String> comboBox, String typeComboBox) {
         switch (typeComboBox) {
@@ -68,7 +68,7 @@ public class SwingTools {
     }
 
     /**
-     *
+     * Method to set icon of app
      * @param dialog
      * @param frame
      */
@@ -81,9 +81,9 @@ public class SwingTools {
     }
 
     /**
-     *
+     * Method to generate table
      * @param newTable
-     * @param typeTable
+     * @param typeTable type of table
      */
     public void createTable(JTable newTable, String typeTable) throws ManagerException {
         ArrayList<String> columns = new ArrayList<>();
@@ -111,7 +111,7 @@ public class SwingTools {
     }
 
     /**
-     *
+     * Method to show button that was selected
      * @param buttonSelected
      * @param buttonGroup
      */
@@ -125,9 +125,9 @@ public class SwingTools {
     }
 
     /**
-     *
+     * Method to get name of the selected button
      * @param buttonGroup
-     * @return
+     * @return name of button
      */
     public String getSelectedButtonText(ButtonGroup buttonGroup) {
         for (Enumeration buttons = buttonGroup.getElements(); buttons.hasMoreElements();) {

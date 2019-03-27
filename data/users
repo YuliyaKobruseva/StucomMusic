@@ -1,5 +1,4 @@
 name, password, typeUser
-admin,admin,ADMIN
 Albert,1234,USER
+admin,admin,ADMIN
 user,user,USER
-yuli,1234,USER

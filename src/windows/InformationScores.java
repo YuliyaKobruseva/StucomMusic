@@ -34,7 +34,6 @@ public class InformationScores extends javax.swing.JDialog {
         difficultyLevel.setSelectedIndex(-1);
         panelInformation.setVisible(false);
         setSize(950, 300);
-
     }
 
     /**
@@ -284,7 +283,7 @@ public class InformationScores extends javax.swing.JDialog {
 
     private void nextMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_nextMouseClicked
         counter++;
-        previous.setVisible(true);        
+        previous.setVisible(true);
         showData();
     }//GEN-LAST:event_nextMouseClicked
 
@@ -318,6 +317,8 @@ public class InformationScores extends javax.swing.JDialog {
                 panelInformation.setVisible(true);
                 setSize(950, 900);
                 previous.setVisible(false);
+                this.instrumentSelected.setSelectedIndex(-1);
+                difficultyLevel.setSelectedIndex(-1);
             }
         } catch (ManagerException ex) {
             JOptionPane.showMessageDialog(this, ex.getMessage(), "Message", JOptionPane.WARNING_MESSAGE);
@@ -326,21 +327,20 @@ public class InformationScores extends javax.swing.JDialog {
     }//GEN-LAST:event_showMouseClicked
 
     private void showData() {
-
         try {
             if (counter == 0 || scores.size() == 1) {
                 previous.setVisible(false);
             }
-            
+
             if ((counter == 0 && scores.size() == 1) || scores.size() == 1) {
                 previous.setVisible(false);
                 next.setVisible(false);
             }
-            
+
             if ((counter > 0 && counter == scores.size() - 1) || (counter > 0 && counter == scores.size()) || (counter > 0 && counter == scores.size())) {
                 next.setVisible(false);
             }
-            
+
             Score score = (Score) scores.get(counter);
             total.setText(counter + 1 + " de " + scores.size());
             code.setText(score.getCode());
@@ -356,9 +356,8 @@ public class InformationScores extends javax.swing.JDialog {
             }
             userName.setText(Manager.getManager().scoreOwner(score.getCode()).getName());
         } catch (ManagerException ex) {
-            //panel
+            JOptionPane.showMessageDialog(this, ex.getMessage(), "Message", JOptionPane.WARNING_MESSAGE);
         }
-
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
