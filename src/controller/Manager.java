@@ -15,11 +15,15 @@ import model.user.User;
 import persistence.InputOutputFile;
 
 /**
+ * Controller class. It is manager of app.
  *
  * @author Yuli
  */
 public class Manager {
 
+    /**
+     * users registred in system currentUser user loged
+     */
     private HashSet<User> users;
     private static Manager manager;
     private User currentUser;

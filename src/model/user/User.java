@@ -15,10 +15,9 @@ import model.enums.TypeUser;
  */
 public class User {
 
-    //comentar porque name es final
     private final String name;
     private String password;
-    private TypeUser typeUser = TypeUser.USER;    
+    private TypeUser typeUser = TypeUser.USER;
     private TreeMap<String, Score> scores;
 
     /**
@@ -36,19 +35,25 @@ public class User {
      * @param score new score
      */
     public Score setScores(Score score) {
-       return this.scores.put(score.getCode(), score);
+        return this.scores.put(score.getCode(), score);
     }
 
-
+    /**
+     * Constructor
+     *
+     * @param name name of user
+     * @param password password of user
+     * @param isAdmin type of user
+     */
     public User(String name, String password, boolean isAdmin) {
         this.name = name;
         this.password = password;
         if (isAdmin) {
             this.typeUser = TypeUser.ADMIN;
-        }else{
+        } else {
             this.typeUser = TypeUser.USER;
         }
-        this.scores= new TreeMap();
+        this.scores = new TreeMap();
     }
 
     /**
@@ -95,5 +100,4 @@ public class User {
     public String getName() {
         return name;
     }
-
 }

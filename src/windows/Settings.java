@@ -9,7 +9,6 @@ import SwingTools.SwingTools;
 import controller.Manager;
 import exceptions.InputOutputException;
 import exceptions.ManagerException;
-import java.awt.Color;
 import javax.swing.JOptionPane;
 import model.user.User;
 
@@ -36,7 +35,7 @@ public class Settings extends javax.swing.JDialog {
         requiredPass.setVisible(false);
         passNoMatch.setVisible(false);
         newPass.setText("");
-        confirmPass.setText("");        
+        confirmPass.setText("");
     }
 
     /**
@@ -75,9 +74,9 @@ public class Settings extends javax.swing.JDialog {
         confirmPass.setText("jPasswordField3");
 
         modify.setText("Modify");
-        modify.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                modifyMouseClicked(evt);
+        modify.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                modifyActionPerformed(evt);
             }
         });
 
@@ -143,8 +142,12 @@ public class Settings extends javax.swing.JDialog {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
-    private void modifyMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_modifyMouseClicked
+/**
+     * Call a method to modify password
+     *
+     * @param evt
+     */
+    private void modifyActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_modifyActionPerformed
         try {
             String newPassword = String.valueOf(newPass.getPassword());
             String confirmPassword = String.valueOf(confirmPass.getPassword());
@@ -179,8 +182,7 @@ public class Settings extends javax.swing.JDialog {
         } catch (InputOutputException ex) {
             JOptionPane.showMessageDialog(this, "" + ex.getMessage(), "Message", JOptionPane.WARNING_MESSAGE);
         }
-
-    }//GEN-LAST:event_modifyMouseClicked
+    }//GEN-LAST:event_modifyActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

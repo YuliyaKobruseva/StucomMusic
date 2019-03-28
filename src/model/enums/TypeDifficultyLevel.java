@@ -6,7 +6,7 @@
 package model.enums;
 
 /**
- *
+ * 
  * @author Yuli
  */
 public enum TypeDifficultyLevel {

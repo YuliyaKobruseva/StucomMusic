@@ -71,9 +71,9 @@ public class AddUser extends javax.swing.JDialog {
         jLabel3.setText("Confirm password");
 
         addUserButton.setText("Add user");
-        addUserButton.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                addUserButtonMouseClicked(evt);
+        addUserButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                addUserButtonActionPerformed(evt);
             }
         });
 
@@ -154,7 +154,12 @@ public class AddUser extends javax.swing.JDialog {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void addUserButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_addUserButtonMouseClicked
+    /**
+     * Call a method to create a new user in Manager
+     *
+     * @param evt
+     */
+    private void addUserButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addUserButtonActionPerformed
         String name = nameUser.getText();
         String pass1 = String.valueOf(password1.getPassword());
         String pass2 = String.valueOf(password2.getPassword());
@@ -167,36 +172,34 @@ public class AddUser extends javax.swing.JDialog {
                 errorPass.setVisible(true);
             } else {
                 errorPass.setVisible(false);
-                try {
-                    if (!Manager.getManager().checkPassword(pass1, pass2)) {
-                        errorPass2.setVisible(true);
-                    } else {
-                        errorPass2.setVisible(false);
-                        try {
-                            User userAdd = Manager.getManager().checkExistUser(name);
-                            if (userAdd != null) {
-                                JOptionPane.showMessageDialog(this, "User already exist", "Message", JOptionPane.WARNING_MESSAGE);
+                if (!Manager.getManager().checkPassword(pass1, pass2)) {
+                    errorPass2.setVisible(true);
+                } else {
+                    errorPass2.setVisible(false);
+                    try {
+                        User userAdd = Manager.getManager().checkExistUser(name);
+                        if (userAdd != null) {
+                            JOptionPane.showMessageDialog(this, "User already exist", "Message", JOptionPane.WARNING_MESSAGE);
+                        } else {
+                            if (Manager.getManager().addNewUser(name, pass1, isAdminUser)) {
+                                JOptionPane.showMessageDialog(this, "User added successful", "Message", JOptionPane.INFORMATION_MESSAGE);
+                                nameUser.setText("");
+                                password1.setText("");
+                                password2.setText("");
+                                isAdmin.setSelected(false);
                             } else {
-                                if (Manager.getManager().addNewUser(name, pass1, isAdminUser)) {
-                                    JOptionPane.showMessageDialog(this, "User added successful", "Message", JOptionPane.INFORMATION_MESSAGE);
-                                    this.validate();
-                                    this.repaint();
-                                } else {
-                                    JOptionPane.showMessageDialog(this, "User already exist", "Message", JOptionPane.WARNING_MESSAGE);
-                                }
+                                JOptionPane.showMessageDialog(this, "User already exist", "Message", JOptionPane.WARNING_MESSAGE);
                             }
-                        } catch (ManagerException ex) {
-                            JOptionPane.showMessageDialog(this, "" + ex.getMessage(), "Message", JOptionPane.WARNING_MESSAGE);
-                        } catch (InputOutputException ex) {
-                            JOptionPane.showMessageDialog(this, "" + ex.getMessage(), "Message", JOptionPane.WARNING_MESSAGE);
                         }
+                    } catch (ManagerException ex) {
+                        JOptionPane.showMessageDialog(this, "" + ex.getMessage(), "Message", JOptionPane.WARNING_MESSAGE);
+                    } catch (InputOutputException ex) {
+                        JOptionPane.showMessageDialog(this, "" + ex.getMessage(), "Message", JOptionPane.WARNING_MESSAGE);
                     }
-                } catch (ManagerException ex) {
-                    JOptionPane.showMessageDialog(this, "" + ex.getMessage(), "Message", JOptionPane.WARNING_MESSAGE);
                 }
             }
         }
-    }//GEN-LAST:event_addUserButtonMouseClicked
+    }//GEN-LAST:event_addUserButtonActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

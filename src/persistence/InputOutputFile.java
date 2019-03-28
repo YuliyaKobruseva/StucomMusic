@@ -4,6 +4,7 @@
  * and open the template in the editor.
  */
 package persistence;
+
 import exceptions.InputOutputException;
 import java.io.BufferedReader;
 import java.io.File;
@@ -57,9 +58,10 @@ public class InputOutputFile {
     }
 
     /**
+     * Write a csv file
      *
-     * @param users
-     * @param nameFile
+     * @param users HashSet with all users
+     * @param nameFile name of file to write
      */
     public static void writeFile(HashSet<User> users, String nameFile) throws InputOutputException {
         FileWriter fileWriter = null;
@@ -105,22 +107,25 @@ public class InputOutputFile {
                     fileWriter.append(NEW_LINE_SEPARATOR);
                 }
             }
-                    } catch (IOException ex) {
-            throw new InputOutputException(InputOutputException.FILE_ERROR);            
+        } catch (IOException ex) {
+            throw new InputOutputException(InputOutputException.FILE_ERROR);
         } finally {
             try {
                 fileWriter.flush();
                 fileWriter.close();
             } catch (IOException ex) {
-                throw new InputOutputException(InputOutputException.CLOSE_OR_FLUSHING_FILE_ERROR);                 
+                throw new InputOutputException(InputOutputException.CLOSE_OR_FLUSHING_FILE_ERROR);
             }
         }
     }
 
     /**
+     * Read from csv file
      *
-     * @param users
-     * @param fileName
+     * @param users HashSet with all users
+     * @param fileName name of file to read
+     * @return return true if file exist, else return false
+     * @throws exceptions.InputOutputException if there is any problem with file
      */
     public static boolean readFromFile(HashSet<User> users, String fileName) throws InputOutputException {
         File file = new File(FOLDER_DATA + SEPARATOR + fileName);
@@ -154,12 +159,12 @@ public class InputOutputFile {
                     }
                 }
             } catch (Exception e) {
-                 throw new InputOutputException(InputOutputException.FILE_ERROR);                   
+                throw new InputOutputException(InputOutputException.FILE_ERROR);
             } finally {
                 try {
                     fileReader.close();
                 } catch (IOException e) {
-                    throw new InputOutputException(InputOutputException.CLOSE_FILE_ERROR);                     
+                    throw new InputOutputException(InputOutputException.CLOSE_FILE_ERROR);
                 }
             }
             return true;
@@ -171,6 +176,7 @@ public class InputOutputFile {
      * Delete user file with scores from app when deleting user
      *
      * @param nameFile user file name
+     * @throws exceptions.InputOutputException if there is any problem with file
      */
     public static void deleteFile(String nameFile) throws InputOutputException {
         try {
@@ -181,7 +187,7 @@ public class InputOutputFile {
                 }
             }
         } catch (Exception e) {
-            throw new InputOutputException(InputOutputException.DELETE_FILE_ERROR); 
+            throw new InputOutputException(InputOutputException.DELETE_FILE_ERROR);
         }
     }
 

@@ -22,6 +22,7 @@ public class Login extends javax.swing.JDialog {
 
     /**
      * Creates new form Login
+     *
      * @param parent
      * @param modal
      */
@@ -73,9 +74,9 @@ public class Login extends javax.swing.JDialog {
         });
 
         LogIn.setText("LogIn");
-        LogIn.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                LogInMouseClicked(evt);
+        LogIn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                LogInActionPerformed(evt);
             }
         });
 
@@ -119,21 +120,36 @@ public class Login extends javax.swing.JDialog {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void LogInMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_LogInMouseClicked
-        logIn();
-    }//GEN-LAST:event_LogInMouseClicked
-
+    /**
+     * If user press key "enter" en textField "user", call a method login
+     *
+     * @param evt
+     */
     private void userKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_userKeyPressed
         if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
             logIn();
         }
     }//GEN-LAST:event_userKeyPressed
 
+    /**
+     * If user press key "enter" en textField "password", call a method login
+     *
+     * @param evt
+     */
     private void passwordKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_passwordKeyPressed
         if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
             logIn();
         }
     }//GEN-LAST:event_passwordKeyPressed
+
+    /**
+     * Call a method login
+     *
+     * @param evt
+     */
+    private void LogInActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_LogInActionPerformed
+        logIn();
+    }//GEN-LAST:event_LogInActionPerformed
 
     /**
      * Method to realize signIn

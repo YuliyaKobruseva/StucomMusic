@@ -22,7 +22,7 @@ import model.enums.TypeGenre;
 import model.enums.TypeInstrument;
 
 /**
- *
+ * Swing assistant class to create elements
  * @author Yuli
  */
 public class SwingTools {

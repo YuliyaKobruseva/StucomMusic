@@ -22,6 +22,9 @@ public class ModifyScore extends javax.swing.JDialog {
 
     /**
      * Creates new form ModifyScore
+     *
+     * @param parent
+     * @param modal
      */
     public ModifyScore(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
@@ -200,9 +203,9 @@ public class ModifyScore extends javax.swing.JDialog {
         });
 
         modifyButton.setText("Modify");
-        modifyButton.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                modifyButtonMouseClicked(evt);
+        modifyButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                modifyButtonActionPerformed(evt);
             }
         });
 
@@ -246,6 +249,11 @@ public class ModifyScore extends javax.swing.JDialog {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    /**
+     * Method to obtain score for madify
+     *
+     * @param evt
+     */
     private void selectScoreActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_selectScoreActionPerformed
         if (scoreSelected.getSelectedIndex() == -1) {
             JOptionPane.showMessageDialog(this, "Score not selected", "Message", JOptionPane.WARNING_MESSAGE);
@@ -272,7 +280,12 @@ public class ModifyScore extends javax.swing.JDialog {
 
     }//GEN-LAST:event_selectScoreActionPerformed
 
-    private void modifyButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_modifyButtonMouseClicked
+    /**
+     * Call a method to modify score
+     *
+     * @param evt
+     */
+    private void modifyButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_modifyButtonActionPerformed
         String code = codeScoreSelected.getText();
         String title = titleScoreSelected.getText();
         String artist = artistScoreSeleted.getText();
@@ -289,8 +302,7 @@ public class ModifyScore extends javax.swing.JDialog {
         } catch (InputOutputException ex) {
             JOptionPane.showMessageDialog(this, "" + ex.getMessage(), "Message", JOptionPane.WARNING_MESSAGE);
         }
-
-    }//GEN-LAST:event_modifyButtonMouseClicked
+    }//GEN-LAST:event_modifyButtonActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

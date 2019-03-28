@@ -19,6 +19,9 @@ public class NewScore extends javax.swing.JDialog {
 
     /**
      * Creates new form NewScore
+     *
+     * @param parent
+     * @param modal
      */
     public NewScore(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
@@ -88,9 +91,9 @@ public class NewScore extends javax.swing.JDialog {
         addNewScore.setText("Add new score");
         addNewScore.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED, java.awt.Color.lightGray, java.awt.Color.lightGray, java.awt.Color.lightGray, java.awt.Color.lightGray));
         addNewScore.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        addNewScore.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                addNewScoreMouseClicked(evt);
+        addNewScore.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                addNewScoreActionPerformed(evt);
             }
         });
 
@@ -205,7 +208,12 @@ public class NewScore extends javax.swing.JDialog {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void addNewScoreMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_addNewScoreMouseClicked
+    /**
+     * Call a method to create a new score
+     *
+     * @param evt
+     */
+    private void addNewScoreActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addNewScoreActionPerformed
         String code = codeScore.getText();
         String title = titleScore.getText();
         String artist = artistScore.getText();
@@ -235,7 +243,7 @@ public class NewScore extends javax.swing.JDialog {
                 JOptionPane.showMessageDialog(this, "" + ex.getMessage(), "Message", JOptionPane.WARNING_MESSAGE);
             }
         }
-    }//GEN-LAST:event_addNewScoreMouseClicked
+    }//GEN-LAST:event_addNewScoreActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

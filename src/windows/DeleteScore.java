@@ -53,9 +53,9 @@ public class DeleteScore extends javax.swing.JDialog {
         jLabel1.setText("Choose a score");
 
         deleteScore.setText("Delete");
-        deleteScore.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                deleteScoreMouseClicked(evt);
+        deleteScore.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                deleteScoreActionPerformed(evt);
             }
         });
 
@@ -87,11 +87,14 @@ public class DeleteScore extends javax.swing.JDialog {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void deleteScoreMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_deleteScoreMouseClicked
-        
-        if(selectScore.getSelectedIndex()==-1){
+    /**
+     * Call a method to delete score in Manager
+     * @param evt 
+     */
+    private void deleteScoreActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_deleteScoreActionPerformed
+        if (selectScore.getSelectedIndex() == -1) {
             JOptionPane.showMessageDialog(this, "Score not selected", "Message", JOptionPane.WARNING_MESSAGE);
-        }else{
+        } else {
             int optionSelected = JOptionPane.showConfirmDialog(this, "Are you sure?", "Delete Score", JOptionPane.YES_NO_CANCEL_OPTION);
             // 0=yes, 1=no, 2=cancel
             if (optionSelected == 0) {
@@ -110,14 +113,13 @@ public class DeleteScore extends javax.swing.JDialog {
                 } catch (ManagerException ex) {
                     JOptionPane.showMessageDialog(this, "" + ex.getMessage(), "Message", JOptionPane.WARNING_MESSAGE);
                 } catch (InputOutputException ex) {
-                   JOptionPane.showMessageDialog(this, "" + ex.getMessage(), "Message", JOptionPane.WARNING_MESSAGE);
+                    JOptionPane.showMessageDialog(this, "" + ex.getMessage(), "Message", JOptionPane.WARNING_MESSAGE);
                 }
             }
         }
-      
-    }//GEN-LAST:event_deleteScoreMouseClicked
+    }//GEN-LAST:event_deleteScoreActionPerformed
 
-    
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton deleteScore;
     private javax.swing.JLabel jLabel1;

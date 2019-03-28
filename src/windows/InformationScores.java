@@ -80,9 +80,9 @@ public class InformationScores extends javax.swing.JDialog {
         labelScoresInformation.setText("Information about all scores");
 
         show.setText("Show");
-        show.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                showMouseClicked(evt);
+        show.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                showActionPerformed(evt);
             }
         });
 
@@ -132,16 +132,16 @@ public class InformationScores extends javax.swing.JDialog {
         isPrinted.setEditable(false);
 
         previous.setText("<< Previous");
-        previous.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                previousMouseClicked(evt);
+        previous.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                previousActionPerformed(evt);
             }
         });
 
         next.setText("Next >>");
-        next.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                nextMouseClicked(evt);
+        next.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                nextActionPerformed(evt);
             }
         });
 
@@ -281,17 +281,12 @@ public class InformationScores extends javax.swing.JDialog {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void nextMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_nextMouseClicked
-        counter++;
-        showData();
-    }//GEN-LAST:event_nextMouseClicked
-
-    private void previousMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_previousMouseClicked
-        counter--;
-        showData();
-    }//GEN-LAST:event_previousMouseClicked
-
-    private void showMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_showMouseClicked
+    /**
+     * Select options to filter scores
+     *
+     * @param evt
+     */
+    private void showActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_showActionPerformed
         String instrumentSelected;
         String levelSelected;
         counter = 0;
@@ -320,8 +315,29 @@ public class InformationScores extends javax.swing.JDialog {
         } catch (ManagerException ex) {
             JOptionPane.showMessageDialog(this, ex.getMessage(), "Message", JOptionPane.WARNING_MESSAGE);
         }
-    }//GEN-LAST:event_showMouseClicked
+    }//GEN-LAST:event_showActionPerformed
+    /**
+     * Button previous
+     *
+     * @param evt
+     */
+    private void previousActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_previousActionPerformed
+        counter--;
+        showData();
+    }//GEN-LAST:event_previousActionPerformed
+    /**
+     * Button next
+     *
+     * @param evt
+     */
+    private void nextActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_nextActionPerformed
+        counter++;
+        showData();
+    }//GEN-LAST:event_nextActionPerformed
 
+    /**
+     * Method to show score informations
+     */
     private void showData() {
         next.setVisible(true);
         previous.setVisible(true);

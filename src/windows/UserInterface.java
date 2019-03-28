@@ -171,25 +171,44 @@ public class UserInterface extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
+/**
+     * Open a window to delete user
+     *
+     * @param evt
+     */
     private void deleteUserActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_deleteUserActionPerformed
         DeleteUser deleteUser = new DeleteUser(this, true);
         deleteUser.setLocationRelativeTo(null);
         deleteUser.setVisible(true);
     }//GEN-LAST:event_deleteUserActionPerformed
 
+    /**
+     * Open a window to create a new score
+     *
+     * @param evt
+     */
     private void addScoreActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addScoreActionPerformed
         NewScore newScore = new NewScore(this, true);
         newScore.setLocationRelativeTo(null);
         newScore.setVisible(true);
     }//GEN-LAST:event_addScoreActionPerformed
 
+    /**
+     * Open a window to create a new user
+     *
+     * @param evt
+     */
     private void addUserActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addUserActionPerformed
         AddUser newUser = new AddUser(this, true);
         newUser.setLocationRelativeTo(null);
         newUser.setVisible(true);
     }//GEN-LAST:event_addUserActionPerformed
 
+    /**
+     * Open a window to modify score
+     *
+     * @param evt
+     */
     private void modifyScoreActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_modifyScoreActionPerformed
         try {
             if (Manager.getManager().getCurrentUser().getScores().isEmpty()) {
@@ -204,6 +223,11 @@ public class UserInterface extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_modifyScoreActionPerformed
 
+    /**
+     * Open a window to delete score
+     *
+     * @param evt
+     */
     private void deleteScoreActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_deleteScoreActionPerformed
         try {
             if (Manager.getManager().getCurrentUser().getScores().isEmpty()) {
@@ -218,6 +242,11 @@ public class UserInterface extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_deleteScoreActionPerformed
 
+    /**
+     * Open a window to show informations about scores
+     *
+     * @param evt
+     */
     private void showScoresActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_showScoresActionPerformed
         try {
             if (Manager.getManager().allScores().isEmpty()) {
@@ -232,12 +261,22 @@ public class UserInterface extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_showScoresActionPerformed
 
+    /**
+     * Open a window to show statistical information
+     *
+     * @param evt
+     */
     private void showGlobalInformationActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_showGlobalInformationActionPerformed
         StatisticalInformation statisticalInformation = new StatisticalInformation(this, true);
         statisticalInformation.setLocationRelativeTo(null);
         statisticalInformation.setVisible(true);
     }//GEN-LAST:event_showGlobalInformationActionPerformed
 
+    /**
+     * Open a window to change a password
+     *
+     * @param evt
+     */
     private void settingsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_settingsActionPerformed
         Settings modifyUser = new Settings(this, true);
         modifyUser.setLocationRelativeTo(null);

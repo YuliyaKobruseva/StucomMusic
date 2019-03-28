@@ -1,4 +1,5 @@
 name, password, typeUser
 Albert,1234,USER
+aaa,aa,ADMIN
 admin,admin,ADMIN
 user,user,USER

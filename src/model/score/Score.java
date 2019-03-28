@@ -4,27 +4,23 @@
  * and open the template in the editor.
  */
 package model.score;
-import model.user.User;
 
 /**
  *
  * @author Yuli
  */
-public class Score implements Comparable <Score>{
+public class Score {
 
-    /**
-     *
-     */
     private final String code;
     private String title;
     private String artist;
     private String instrument;
     private String genre;
     private String difficultyLevel;
-    private boolean isPrinted;    
+    private boolean isPrinted;
 
-   
     /**
+     * Constructor
      *
      * @param code
      * @param title
@@ -41,7 +37,7 @@ public class Score implements Comparable <Score>{
         this.instrument = instrument;
         this.genre = genre;
         this.difficultyLevel = difficultyLevel;
-        this.isPrinted = isPrinted;        
+        this.isPrinted = isPrinted;
     }
 
     /**
@@ -160,11 +156,4 @@ public class Score implements Comparable <Score>{
     public String getCode() {
         return code;
     }
-
-    @Override
-    public int compareTo(Score s) {
-        return this.getCode().compareTo(s.getCode());
-    }
-
-    
 }

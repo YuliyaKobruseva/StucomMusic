@@ -49,9 +49,9 @@ public class DeleteUser extends javax.swing.JDialog {
         labelUserdelete.setText("Choose a user");
 
         deleteUserButton.setText("Delete");
-        deleteUserButton.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                deleteUserButtonMouseClicked(evt);
+        deleteUserButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                deleteUserButtonActionPerformed(evt);
             }
         });
         deleteUserButton.addKeyListener(new java.awt.event.KeyAdapter() {
@@ -90,17 +90,29 @@ public class DeleteUser extends javax.swing.JDialog {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void deleteUserButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_deleteUserButtonMouseClicked
-        delete();
-    }//GEN-LAST:event_deleteUserButtonMouseClicked
-
+    /**
+     * If user press key "enter", call a method delete
+     *
+     * @param evt
+     */
     private void deleteUserButtonKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_deleteUserButtonKeyPressed
         int key = evt.getKeyCode();
         if (key == KeyEvent.VK_ENTER) {
             delete();
         }
     }//GEN-LAST:event_deleteUserButtonKeyPressed
+    /**
+     * Call a method to delete
+     *
+     * @param evt
+     */
+    private void deleteUserButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_deleteUserButtonActionPerformed
+        delete();
+    }//GEN-LAST:event_deleteUserButtonActionPerformed
 
+    /**
+     * Method to delete user which call a delete method in Manager
+     */
     private void delete() {
         if (userSelected.getSelectedIndex() == -1) {
             JOptionPane.showMessageDialog(this, "User not selected", "Message", JOptionPane.WARNING_MESSAGE);
